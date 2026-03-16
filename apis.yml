@@ -30,7 +30,7 @@ type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2025-02-24'
-modified: '2025-02-28'
+modified: '2026-03-16'
 position: Consumer
 description: >-
   Bloom Credit is a fintech company that provides individuals with reliable and
@@ -43,5 +43,5 @@ description: >-
   management, ultimately helping users achieve their financial goals.
 maintainers:
   - FN: Kin Lane
-    email: info@apievangelist.com
+    email: kin@apievangelist.com
 specificationVersion: '0.19'
