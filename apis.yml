@@ -5,8 +5,8 @@ apis:
   - aid: bloom-credit:bloom-credit
     name: Bloom Credit
     tags:
-      - Credit Scores
       - Credit
+      - Credit Scores
       - Financial
     humanURL: https://bloomcredit.io/
     properties:
@@ -20,8 +20,8 @@ apis:
       better understand their customers and streamline the lending process.
 name: Bloom Credit
 tags:
-  - Credit Scores
   - Credit
+  - Credit Scores
   - Financial
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
