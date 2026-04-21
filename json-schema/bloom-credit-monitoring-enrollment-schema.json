@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bloom-credit/main/json-schema/bloom-credit-monitoring-enrollment-schema.json",
+  "title": "MonitoringEnrollment",
+  "description": "Credit monitoring enrollment record for a consumer.",
+  "type": "object",
+  "properties": {
+    "enrollment_id": {
+      "type": "string",
+      "description": "Unique identifier for the monitoring enrollment.",
+      "example": "mon_4b3c2d1e0f9a"
+    },
+    "consumer_id": {
+      "type": "string",
+      "description": "Consumer this enrollment belongs to.",
+      "example": "cns_8f7d3a2b1c4e5f6a"
+    },
+    "status": {
+      "type": "string",
+      "description": "Enrollment status.",
+      "enum": ["ACTIVE", "INACTIVE", "PAUSED"],
+      "example": "ACTIVE"
+    },
+    "bureaus": {
+      "type": "array",
+      "description": "Bureaus being monitored.",
+      "items": {
+        "type": "string",
+        "enum": ["equifax", "experian", "transunion"]
+      },
+      "example": ["equifax", "experian", "transunion"]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:10:00Z"
+    }
+  }
+}

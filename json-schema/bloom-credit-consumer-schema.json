@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bloom-credit/main/json-schema/bloom-credit-consumer-schema.json",
+  "title": "Consumer",
+  "description": "A registered consumer with consent for credit data access.",
+  "type": "object",
+  "properties": {
+    "consumer_id": {
+      "type": "string",
+      "description": "Unique identifier for the consumer.",
+      "example": "cns_8f7d3a2b1c4e5f6a"
+    },
+    "first_name": {
+      "type": "string",
+      "description": "Consumer's first name.",
+      "example": "Jane"
+    },
+    "last_name": {
+      "type": "string",
+      "description": "Consumer's last name.",
+      "example": "Smith"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Consumer's email address.",
+      "example": "jane.smith@example.com"
+    },
+    "status": {
+      "type": "string",
+      "description": "Consumer account status.",
+      "enum": ["ACTIVE", "INACTIVE", "PENDING"],
+      "example": "ACTIVE"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:00:00Z"
+    }
+  }
+}

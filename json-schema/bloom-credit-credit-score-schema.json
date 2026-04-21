@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bloom-credit/main/json-schema/bloom-credit-credit-score-schema.json",
+  "title": "CreditScore",
+  "description": "A credit score from a specific bureau and scoring model.",
+  "type": "object",
+  "properties": {
+    "bureau": {
+      "type": "string",
+      "description": "Credit bureau providing the score.",
+      "enum": ["equifax", "experian", "transunion"],
+      "example": "equifax"
+    },
+    "score_type": {
+      "type": "string",
+      "description": "Scoring model used (e.g., FICO8, VANTAGE3).",
+      "example": "FICO8"
+    },
+    "score": {
+      "type": "integer",
+      "description": "Numerical credit score value.",
+      "minimum": 300,
+      "maximum": 850,
+      "example": 720
+    },
+    "score_range_min": {
+      "type": "integer",
+      "description": "Minimum score in the scoring model range.",
+      "example": 300
+    },
+    "score_range_max": {
+      "type": "integer",
+      "description": "Maximum score in the scoring model range.",
+      "example": 850
+    },
+    "factors": {
+      "type": "array",
+      "description": "Score factors and reasons.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "string", "example": "PAYMENT_HISTORY" },
+          "description": { "type": "string", "example": "Payments made on time" }
+        }
+      }
+    }
+  }
+}

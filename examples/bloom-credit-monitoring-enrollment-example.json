@@ -1,0 +1,20 @@
+{
+  "enrollment_id": "mon_4b3c2d1e0f9a",
+  "consumer_id": "cns_8f7d3a2b1c4e5f6a",
+  "status": "ACTIVE",
+  "bureaus": [
+    "equifax",
+    "experian",
+    "transunion"
+  ],
+  "alert_types": [
+    "NEW_ACCOUNT",
+    "INQUIRY",
+    "DEROGATORY",
+    "SCORE_CHANGE",
+    "ADDRESS_CHANGE"
+  ],
+  "webhook_url": "https://example.com/webhooks/credit-alerts",
+  "created_at": "2026-01-15T10:10:00Z",
+  "updated_at": "2026-01-15T10:10:00Z"
+}

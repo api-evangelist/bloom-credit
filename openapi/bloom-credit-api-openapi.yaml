@@ -1,0 +1,620 @@
+openapi: 3.0.3
+info:
+  title: Bloom Credit API
+  description: >-
+    Bloom Credit API provides access to consumer credit data from all three major
+    credit bureaus (Equifax, Experian, TransUnion). Enables fintech applications,
+    lenders, and financial services platforms to retrieve credit reports, credit scores,
+    trade line data, and credit monitoring capabilities for consumers who have granted
+    consent.
+  version: "1.0"
+  contact:
+    name: Bloom Credit Developer Support
+    url: https://bloomcredit.io
+  termsOfService: https://bloomcredit.io/terms
+  license:
+    name: Proprietary
+    url: https://bloomcredit.io/terms
+servers:
+  - url: https://api.bloomcredit.io/v1
+    description: Production
+  - url: https://api.sandbox.bloomcredit.io/v1
+    description: Sandbox
+security:
+  - ApiKeyAuth: []
+tags:
+  - name: Consumers
+    description: Consumer identity and registration
+  - name: Credit Reports
+    description: Full credit bureau report retrieval
+  - name: Credit Scores
+    description: Credit score retrieval
+  - name: Trade Lines
+    description: Individual account and trade line data
+  - name: Monitoring
+    description: Credit monitoring and alerts
+paths:
+  /consumers:
+    post:
+      operationId: create-consumer
+      summary: Bloom Credit Create Consumer
+      description: >-
+        Registers a new consumer and obtains consent for credit data access.
+        Returns a consumer_id used for subsequent credit data requests.
+      tags:
+        - Consumers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConsumerRequest'
+            examples:
+              create-consumer:
+                summary: Register a consumer
+                value:
+                  first_name: Jane
+                  last_name: Smith
+                  date_of_birth: "1985-06-15"
+                  ssn: "123-45-6789"
+                  address:
+                    street: "456 Oak Avenue"
+                    city: San Francisco
+                    state: CA
+                    zip_code: "94102"
+                  email: jane.smith@example.com
+                  phone: "+14155551234"
+                x-microcks-default: true
+      responses:
+        '201':
+          description: Consumer registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer'
+              examples:
+                created-consumer:
+                  summary: Created consumer
+                  value:
+                    consumer_id: cns_8f7d3a2b1c4e5f6a
+                    first_name: Jane
+                    last_name: Smith
+                    email: jane.smith@example.com
+                    status: ACTIVE
+                    created_at: "2026-01-15T10:00:00Z"
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 100
+        dispatcher: SCRIPT
+  /consumers/{consumer_id}:
+    get:
+      operationId: get-consumer
+      summary: Bloom Credit Get Consumer
+      description: Retrieves a registered consumer's profile and status.
+      tags:
+        - Consumers
+      parameters:
+        - name: consumer_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the consumer.
+      responses:
+        '200':
+          description: Consumer retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer'
+              examples:
+                get-consumer:
+                  summary: Consumer profile
+                  value:
+                    consumer_id: cns_8f7d3a2b1c4e5f6a
+                    first_name: Jane
+                    last_name: Smith
+                    email: jane.smith@example.com
+                    status: ACTIVE
+                    created_at: "2026-01-15T10:00:00Z"
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 50
+        dispatcher: URI_PARTS
+        dispatcherRules: consumer_id
+  /consumers/{consumer_id}/credit-reports:
+    get:
+      operationId: get-credit-reports
+      summary: Bloom Credit Get Credit Reports
+      description: >-
+        Retrieves credit reports for the specified consumer from one or more
+        credit bureaus. Returns structured trade line, inquiry, and public
+        record data.
+      tags:
+        - Credit Reports
+      parameters:
+        - name: consumer_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the consumer.
+        - name: bureaus
+          in: query
+          schema:
+            type: string
+          description: Comma-separated list of bureaus (equifax,experian,transunion). Defaults to all three.
+          example: equifax,experian,transunion
+        - name: refresh
+          in: query
+          schema:
+            type: boolean
+          description: If true, pulls a fresh report from the bureau.
+      responses:
+        '200':
+          description: Credit reports retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditReportResponse'
+              examples:
+                credit-reports:
+                  summary: Consumer credit reports
+                  value:
+                    consumer_id: cns_8f7d3a2b1c4e5f6a
+                    reports:
+                      - bureau: equifax
+                        pull_date: "2026-01-15T10:05:00Z"
+                        scores:
+                          - score_type: FICO8
+                            score: 720
+                            score_range_min: 300
+                            score_range_max: 850
+                        trade_lines_count: 8
+                        open_accounts: 5
+                        total_balance: 15200
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 200
+        dispatcher: URI_PARTS
+        dispatcherRules: consumer_id
+  /consumers/{consumer_id}/scores:
+    get:
+      operationId: get-credit-scores
+      summary: Bloom Credit Get Credit Scores
+      description: Retrieves credit scores for the consumer from specified bureaus.
+      tags:
+        - Credit Scores
+      parameters:
+        - name: consumer_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the consumer.
+        - name: bureaus
+          in: query
+          schema:
+            type: string
+          description: Comma-separated list of bureaus.
+        - name: score_type
+          in: query
+          schema:
+            type: string
+          description: Score model type (e.g., FICO8, VANTAGE3).
+      responses:
+        '200':
+          description: Credit scores retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditScoreResponse'
+              examples:
+                credit-scores:
+                  summary: Consumer credit scores
+                  value:
+                    consumer_id: cns_8f7d3a2b1c4e5f6a
+                    scores:
+                      - bureau: equifax
+                        score_type: FICO8
+                        score: 720
+                        score_range_min: 300
+                        score_range_max: 850
+                        factors:
+                          - code: PAYMENT_HISTORY
+                            description: Payments made on time
+                      - bureau: experian
+                        score_type: FICO8
+                        score: 715
+                        score_range_min: 300
+                        score_range_max: 850
+                      - bureau: transunion
+                        score_type: FICO8
+                        score: 718
+                        score_range_min: 300
+                        score_range_max: 850
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 150
+        dispatcher: URI_PARTS
+        dispatcherRules: consumer_id
+  /consumers/{consumer_id}/trade-lines:
+    get:
+      operationId: get-trade-lines
+      summary: Bloom Credit Get Trade Lines
+      description: Retrieves individual trade line (account) data for the consumer.
+      tags:
+        - Trade Lines
+      parameters:
+        - name: consumer_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the consumer.
+        - name: bureau
+          in: query
+          schema:
+            type: string
+          description: Bureau to pull trade lines from.
+        - name: account_type
+          in: query
+          schema:
+            type: string
+          description: Filter by account type (revolving, installment, mortgage).
+      responses:
+        '200':
+          description: Trade lines retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TradeLinesResponse'
+              examples:
+                trade-lines:
+                  summary: Consumer trade lines
+                  value:
+                    consumer_id: cns_8f7d3a2b1c4e5f6a
+                    trade_lines:
+                      - account_id: tl_9a8b7c6d5e4f
+                        bureau: equifax
+                        creditor_name: Chase Bank
+                        account_type: revolving
+                        account_status: open
+                        credit_limit: 10000
+                        current_balance: 2400
+                        payment_status: current
+                        opened_date: "2018-03-01"
+                        last_activity_date: "2026-01-10"
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 150
+        dispatcher: URI_PARTS
+        dispatcherRules: consumer_id
+  /consumers/{consumer_id}/monitoring:
+    post:
+      operationId: enroll-monitoring
+      summary: Bloom Credit Enroll Monitoring
+      description: Enrolls a consumer in credit monitoring to receive alerts on credit changes.
+      tags:
+        - Monitoring
+      parameters:
+        - name: consumer_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the consumer.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MonitoringEnrollRequest'
+            examples:
+              enroll-monitoring:
+                summary: Monitoring enrollment
+                value:
+                  bureaus:
+                    - equifax
+                    - experian
+                    - transunion
+                  alert_types:
+                    - NEW_ACCOUNT
+                    - INQUIRY
+                    - DEROGATORY
+                    - SCORE_CHANGE
+                  webhook_url: https://example.com/webhooks/credit-alerts
+                x-microcks-default: true
+      responses:
+        '201':
+          description: Monitoring enrollment created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MonitoringEnrollment'
+              examples:
+                enrolled-monitoring:
+                  summary: Monitoring enrollment
+                  value:
+                    enrollment_id: mon_4b3c2d1e0f9a
+                    consumer_id: cns_8f7d3a2b1c4e5f6a
+                    status: ACTIVE
+                    bureaus:
+                      - equifax
+                      - experian
+                      - transunion
+                    created_at: "2026-01-15T10:10:00Z"
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 100
+        dispatcher: URI_PARTS
+        dispatcherRules: consumer_id
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API key obtained from the Bloom Credit developer portal
+  schemas:
+    Address:
+      type: object
+      description: Physical mailing address.
+      properties:
+        street:
+          type: string
+          example: "456 Oak Avenue"
+        city:
+          type: string
+          example: San Francisco
+        state:
+          type: string
+          example: CA
+        zip_code:
+          type: string
+          example: "94102"
+    Consumer:
+      type: object
+      description: A registered consumer with consent for credit data access.
+      properties:
+        consumer_id:
+          type: string
+          description: Unique identifier for the consumer.
+          example: cns_8f7d3a2b1c4e5f6a
+        first_name:
+          type: string
+          description: Consumer's first name.
+          example: Jane
+        last_name:
+          type: string
+          description: Consumer's last name.
+          example: Smith
+        email:
+          type: string
+          format: email
+          description: Consumer's email address.
+          example: jane.smith@example.com
+        status:
+          type: string
+          description: Consumer account status.
+          enum: [ACTIVE, INACTIVE, PENDING]
+          example: ACTIVE
+        created_at:
+          type: string
+          format: date-time
+          example: "2026-01-15T10:00:00Z"
+    CreateConsumerRequest:
+      type: object
+      required:
+        - first_name
+        - last_name
+        - date_of_birth
+        - ssn
+        - address
+      properties:
+        first_name:
+          type: string
+          example: Jane
+        last_name:
+          type: string
+          example: Smith
+        date_of_birth:
+          type: string
+          format: date
+          example: "1985-06-15"
+        ssn:
+          type: string
+          description: Social Security Number for identity verification.
+          example: "123-45-6789"
+        address:
+          $ref: '#/components/schemas/Address'
+        email:
+          type: string
+          format: email
+          example: jane.smith@example.com
+        phone:
+          type: string
+          example: "+14155551234"
+    CreditScore:
+      type: object
+      description: A credit score from a specific bureau and scoring model.
+      properties:
+        bureau:
+          type: string
+          description: Credit bureau providing the score.
+          enum: [equifax, experian, transunion]
+          example: equifax
+        score_type:
+          type: string
+          description: Scoring model used.
+          example: FICO8
+        score:
+          type: integer
+          description: Numerical credit score value.
+          example: 720
+        score_range_min:
+          type: integer
+          description: Minimum score in the scoring model range.
+          example: 300
+        score_range_max:
+          type: integer
+          description: Maximum score in the scoring model range.
+          example: 850
+        factors:
+          type: array
+          description: Factors affecting the score.
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                example: PAYMENT_HISTORY
+              description:
+                type: string
+                example: Payments made on time
+    CreditScoreResponse:
+      type: object
+      properties:
+        consumer_id:
+          type: string
+          example: cns_8f7d3a2b1c4e5f6a
+        scores:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditScore'
+    CreditReport:
+      type: object
+      description: A credit report from a specific bureau.
+      properties:
+        bureau:
+          type: string
+          enum: [equifax, experian, transunion]
+          example: equifax
+        pull_date:
+          type: string
+          format: date-time
+          example: "2026-01-15T10:05:00Z"
+        scores:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditScore'
+        trade_lines_count:
+          type: integer
+          example: 8
+        open_accounts:
+          type: integer
+          example: 5
+        total_balance:
+          type: integer
+          description: Total balance across all accounts in USD cents.
+          example: 15200
+    CreditReportResponse:
+      type: object
+      properties:
+        consumer_id:
+          type: string
+          example: cns_8f7d3a2b1c4e5f6a
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditReport'
+    TradeLine:
+      type: object
+      description: An individual account or trade line in a credit report.
+      properties:
+        account_id:
+          type: string
+          description: Unique identifier for this trade line.
+          example: tl_9a8b7c6d5e4f
+        bureau:
+          type: string
+          enum: [equifax, experian, transunion]
+          example: equifax
+        creditor_name:
+          type: string
+          description: Name of the creditor or lender.
+          example: Chase Bank
+        account_type:
+          type: string
+          description: Type of account (revolving, installment, mortgage, etc.).
+          example: revolving
+        account_status:
+          type: string
+          description: Whether the account is open or closed.
+          enum: [open, closed]
+          example: open
+        credit_limit:
+          type: integer
+          description: Credit limit in USD cents.
+          example: 10000
+        current_balance:
+          type: integer
+          description: Current balance in USD cents.
+          example: 2400
+        payment_status:
+          type: string
+          description: Current payment status.
+          example: current
+        opened_date:
+          type: string
+          format: date
+          example: "2018-03-01"
+        last_activity_date:
+          type: string
+          format: date
+          example: "2026-01-10"
+    TradeLinesResponse:
+      type: object
+      properties:
+        consumer_id:
+          type: string
+          example: cns_8f7d3a2b1c4e5f6a
+        trade_lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/TradeLine'
+    MonitoringEnrollRequest:
+      type: object
+      properties:
+        bureaus:
+          type: array
+          items:
+            type: string
+          example: [equifax, experian, transunion]
+        alert_types:
+          type: array
+          description: Types of changes to monitor.
+          items:
+            type: string
+          example: [NEW_ACCOUNT, INQUIRY, DEROGATORY, SCORE_CHANGE]
+        webhook_url:
+          type: string
+          format: uri
+          description: URL to receive credit monitoring alerts.
+          example: https://example.com/webhooks/credit-alerts
+    MonitoringEnrollment:
+      type: object
+      description: Credit monitoring enrollment record.
+      properties:
+        enrollment_id:
+          type: string
+          description: Unique identifier for the monitoring enrollment.
+          example: mon_4b3c2d1e0f9a
+        consumer_id:
+          type: string
+          example: cns_8f7d3a2b1c4e5f6a
+        status:
+          type: string
+          enum: [ACTIVE, INACTIVE, PAUSED]
+          example: ACTIVE
+        bureaus:
+          type: array
+          items:
+            type: string
+          example: [equifax, experian, transunion]
+        created_at:
+          type: string
+          format: date-time
+          example: "2026-01-15T10:10:00Z"
+x-generated-from: documentation
+x-source-url: https://bloomcredit.io

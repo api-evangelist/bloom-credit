@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bloom-credit/main/json-structure/bloom-credit-trade-line-structure.json",
+  "title": "TradeLine",
+  "description": "An individual account or trade line in a credit report.",
+  "type": "object",
+  "members": [
+    { "name": "account_id", "type": "string", "description": "Unique identifier for this trade line." },
+    { "name": "bureau", "type": "string", "description": "Bureau reporting this trade line." },
+    { "name": "creditor_name", "type": "string", "description": "Name of the creditor or lender." },
+    { "name": "account_type", "type": "string", "description": "Account type (revolving, installment, mortgage)." },
+    { "name": "account_status", "type": "string", "description": "Whether the account is open or closed." },
+    { "name": "credit_limit", "type": "integer", "description": "Credit limit in USD." },
+    { "name": "current_balance", "type": "integer", "description": "Current balance in USD." },
+    { "name": "payment_status", "type": "string", "description": "Current payment status." },
+    { "name": "opened_date", "type": "string", "description": "Date account was opened." },
+    { "name": "last_activity_date", "type": "string", "description": "Date of last account activity." }
+  ]
+}

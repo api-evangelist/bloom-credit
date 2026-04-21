@@ -1,0 +1,51 @@
+{
+  "consumer_id": "cns_8f7d3a2b1c4e5f6a",
+  "scores": [
+    {
+      "bureau": "equifax",
+      "score_type": "FICO8",
+      "score": 720,
+      "score_range_min": 300,
+      "score_range_max": 850,
+      "score_date": "2026-01-15",
+      "factors": [
+        {
+          "code": "PAYMENT_HISTORY",
+          "description": "Payments have been consistently made on time"
+        },
+        {
+          "code": "CREDIT_UTILIZATION",
+          "description": "Low credit utilization ratio"
+        }
+      ]
+    },
+    {
+      "bureau": "experian",
+      "score_type": "FICO8",
+      "score": 715,
+      "score_range_min": 300,
+      "score_range_max": 850,
+      "score_date": "2026-01-15",
+      "factors": [
+        {
+          "code": "PAYMENT_HISTORY",
+          "description": "Payments have been consistently made on time"
+        }
+      ]
+    },
+    {
+      "bureau": "transunion",
+      "score_type": "FICO8",
+      "score": 718,
+      "score_range_min": 300,
+      "score_range_max": 850,
+      "score_date": "2026-01-15",
+      "factors": [
+        {
+          "code": "PAYMENT_HISTORY",
+          "description": "Payments have been consistently made on time"
+        }
+      ]
+    }
+  ]
+}

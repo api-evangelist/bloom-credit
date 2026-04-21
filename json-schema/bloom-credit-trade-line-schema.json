@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bloom-credit/main/json-schema/bloom-credit-trade-line-schema.json",
+  "title": "TradeLine",
+  "description": "An individual account or trade line in a credit report.",
+  "type": "object",
+  "properties": {
+    "account_id": {
+      "type": "string",
+      "description": "Unique identifier for this trade line.",
+      "example": "tl_9a8b7c6d5e4f"
+    },
+    "bureau": {
+      "type": "string",
+      "description": "Bureau reporting this trade line.",
+      "enum": ["equifax", "experian", "transunion"],
+      "example": "equifax"
+    },
+    "creditor_name": {
+      "type": "string",
+      "description": "Name of the creditor or lender.",
+      "example": "Chase Bank"
+    },
+    "account_type": {
+      "type": "string",
+      "description": "Type of account.",
+      "example": "revolving"
+    },
+    "account_status": {
+      "type": "string",
+      "description": "Whether the account is open or closed.",
+      "enum": ["open", "closed"],
+      "example": "open"
+    },
+    "credit_limit": {
+      "type": "integer",
+      "description": "Credit limit in USD.",
+      "example": 10000
+    },
+    "current_balance": {
+      "type": "integer",
+      "description": "Current balance in USD.",
+      "example": 2400
+    },
+    "payment_status": {
+      "type": "string",
+      "description": "Current payment status.",
+      "example": "current"
+    },
+    "opened_date": {
+      "type": "string",
+      "format": "date",
+      "example": "2018-03-01"
+    },
+    "last_activity_date": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-01-10"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-structure.org/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bloom-credit/main/json-structure/bloom-credit-monitoring-enrollment-structure.json",
+  "title": "MonitoringEnrollment",
+  "description": "Credit monitoring enrollment record for a consumer.",
+  "type": "object",
+  "members": [
+    { "name": "enrollment_id", "type": "string", "description": "Unique identifier for the enrollment." },
+    { "name": "consumer_id", "type": "string", "description": "Consumer this enrollment belongs to." },
+    { "name": "status", "type": "string", "description": "Status: ACTIVE, INACTIVE, PAUSED." },
+    { "name": "bureaus", "type": "array", "description": "Bureaus being monitored." },
+    { "name": "created_at", "type": "string", "description": "Timestamp when enrollment was created." }
+  ]
+}

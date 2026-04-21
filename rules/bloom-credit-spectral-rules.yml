@@ -1,0 +1,264 @@
+rules:
+  # Info rules
+  bloom-credit-info-title:
+    description: API must have a title
+    severity: error
+    given: "$.info"
+    then:
+      field: title
+      function: truthy
+
+  bloom-credit-info-description:
+    description: API must have a description
+    severity: error
+    given: "$.info"
+    then:
+      field: description
+      function: truthy
+
+  bloom-credit-info-version:
+    description: API must have a version
+    severity: error
+    given: "$.info"
+    then:
+      field: version
+      function: truthy
+
+  bloom-credit-info-contact:
+    description: API must have contact information
+    severity: warn
+    given: "$.info"
+    then:
+      field: contact
+      function: truthy
+
+  # Server rules
+  bloom-credit-servers-exist:
+    description: API must have at least one server defined
+    severity: error
+    given: "$"
+    then:
+      field: servers
+      function: truthy
+
+  bloom-credit-server-https:
+    description: All servers must use HTTPS
+    severity: error
+    given: "$.servers[*]"
+    then:
+      field: url
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  bloom-credit-server-description:
+    description: Each server must have a description
+    severity: warn
+    given: "$.servers[*]"
+    then:
+      field: description
+      function: truthy
+
+  # Path rules
+  bloom-credit-path-kebab-case:
+    description: Path segments must use kebab-case
+    severity: warn
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/[a-z0-9-{}]+)+$"
+
+  bloom-credit-path-no-trailing-slash:
+    description: Paths must not have trailing slashes
+    severity: error
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "/$"
+
+  # Operation rules
+  bloom-credit-operation-id-exists:
+    description: Every operation must have an operationId
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete,head,options,trace]"
+    then:
+      field: operationId
+      function: truthy
+
+  bloom-credit-operation-id-kebab-case:
+    description: OperationId must use kebab-case
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete,head,options,trace]"
+    then:
+      field: operationId
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-z0-9-]+$"
+
+  bloom-credit-operation-summary-exists:
+    description: Every operation must have a summary
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete,head,options,trace]"
+    then:
+      field: summary
+      function: truthy
+
+  bloom-credit-operation-summary-prefix:
+    description: Operation summaries must start with Bloom Credit
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete,head,options,trace]"
+    then:
+      field: summary
+      function: pattern
+      functionOptions:
+        match: "^Bloom Credit"
+
+  bloom-credit-operation-description-exists:
+    description: Every operation must have a description
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete,head,options,trace]"
+    then:
+      field: description
+      function: truthy
+
+  bloom-credit-operation-tags:
+    description: Every operation must have at least one tag
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete,head,options,trace]"
+    then:
+      field: tags
+      function: truthy
+
+  # Parameter rules
+  bloom-credit-parameter-description:
+    description: All parameters must have a description
+    severity: warn
+    given: "$.paths[*][*].parameters[*]"
+    then:
+      field: description
+      function: truthy
+
+  bloom-credit-parameter-schema:
+    description: All parameters must have a schema
+    severity: error
+    given: "$.paths[*][*].parameters[*]"
+    then:
+      field: schema
+      function: truthy
+
+  # Response rules
+  bloom-credit-response-success-exists:
+    description: Operations must have at least one 2xx response
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: responses
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          anyOf:
+            - required: ["200"]
+            - required: ["201"]
+            - required: ["202"]
+            - required: ["204"]
+
+  bloom-credit-response-schema-exists:
+    description: Success responses must have a content schema
+    severity: warn
+    given: "$.paths[*][*].responses[200,201].content[*]"
+    then:
+      field: schema
+      function: truthy
+
+  bloom-credit-response-examples:
+    description: Responses should include examples
+    severity: warn
+    given: "$.paths[*][*].responses[200,201].content[*]"
+    then:
+      field: examples
+      function: truthy
+
+  # Security rules
+  bloom-credit-security-scheme-defined:
+    description: API must define security schemes
+    severity: error
+    given: "$.components"
+    then:
+      field: securitySchemes
+      function: truthy
+
+  bloom-credit-global-security:
+    description: API should have global security defined
+    severity: warn
+    given: "$"
+    then:
+      field: security
+      function: truthy
+
+  bloom-credit-apikey-auth:
+    description: API should use API key authentication via X-API-Key header
+    severity: info
+    given: "$.components.securitySchemes[*]"
+    then:
+      function: truthy
+
+  # Schema rules
+  bloom-credit-schema-type:
+    description: All schema objects must have a type
+    severity: warn
+    given: "$.components.schemas[*]"
+    then:
+      field: type
+      function: truthy
+
+  bloom-credit-schema-description:
+    description: All schema components must have a description
+    severity: warn
+    given: "$.components.schemas[*]"
+    then:
+      field: description
+      function: truthy
+
+  bloom-credit-property-description:
+    description: Schema properties should have descriptions
+    severity: info
+    given: "$.components.schemas[*].properties[*]"
+    then:
+      field: description
+      function: truthy
+
+  # Bloom Credit-specific rules
+  bloom-credit-consumer-id-path:
+    description: Consumer endpoints should be nested under /consumers/{consumer_id}
+    severity: info
+    given: "$.paths[/consumers/{consumer_id}*]~"
+    then:
+      function: truthy
+
+  bloom-credit-bureau-enum:
+    description: Bureau fields should use valid bureau names
+    severity: info
+    given: "$.components.schemas[*].properties.bureau.enum"
+    then:
+      function: truthy
+
+  bloom-credit-score-range:
+    description: Credit score schemas should define min/max range
+    severity: info
+    given: "$.components.schemas.CreditScore.properties.score"
+    then:
+      function: truthy
+
+  bloom-credit-sandbox-server:
+    description: API should have a sandbox server for testing
+    severity: warn
+    given: "$.servers"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          minItems: 2

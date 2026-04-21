@@ -1,0 +1,55 @@
+name: Bloom Credit Vocabulary
+description: >-
+  Unified taxonomy mapping resources, actions, workflows, and personas across
+  operational (OpenAPI) and capability (Naftiko) dimensions for the Bloom Credit API.
+resources:
+  - name: Consumer
+    description: A registered individual with consent for credit data access.
+    operationalRef: "#/components/schemas/Consumer"
+    capabilityRef: "capabilities/shared/bloom-credit-api.yaml#operations/create-consumer"
+  - name: CreditReport
+    description: A full credit report from a bureau including trade lines, inquiries, and public records.
+    operationalRef: "#/components/schemas/CreditReport"
+    capabilityRef: "capabilities/shared/bloom-credit-api.yaml#operations/get-credit-reports"
+  - name: CreditScore
+    description: A numerical credit score from a specific bureau and scoring model.
+    operationalRef: "#/components/schemas/CreditScore"
+    capabilityRef: "capabilities/shared/bloom-credit-api.yaml#operations/get-credit-scores"
+  - name: TradeLine
+    description: An individual account or trade line record in a consumer's credit file.
+    operationalRef: "#/components/schemas/TradeLine"
+    capabilityRef: "capabilities/shared/bloom-credit-api.yaml#operations/get-trade-lines"
+  - name: MonitoringEnrollment
+    description: A credit monitoring subscription that sends alerts on credit changes.
+    operationalRef: "#/components/schemas/MonitoringEnrollment"
+    capabilityRef: "capabilities/shared/bloom-credit-api.yaml#operations/enroll-monitoring"
+actions:
+  - name: Register Consumer
+    description: Register a new consumer and obtain consent for credit bureau data access.
+    operationalRef: "openapi/bloom-credit-api-openapi.yaml#/paths/~1consumers/post"
+    capabilityRef: "capabilities/shared/bloom-credit-api.yaml#operations/create-consumer"
+  - name: Pull Credit Report
+    description: Retrieve a full tri-bureau or single-bureau credit report for a consumer.
+    operationalRef: "openapi/bloom-credit-api-openapi.yaml#/paths/~1consumers~1{consumer_id}~1credit-reports/get"
+    capabilityRef: "capabilities/shared/bloom-credit-api.yaml#operations/get-credit-reports"
+  - name: Get Credit Score
+    description: Retrieve FICO or VantageScore credit scores from one or more bureaus.
+    operationalRef: "openapi/bloom-credit-api-openapi.yaml#/paths/~1consumers~1{consumer_id}~1scores/get"
+    capabilityRef: "capabilities/shared/bloom-credit-api.yaml#operations/get-credit-scores"
+  - name: Enroll Monitoring
+    description: Subscribe a consumer to real-time credit monitoring and change alerts.
+    operationalRef: "openapi/bloom-credit-api-openapi.yaml#/paths/~1consumers~1{consumer_id}~1monitoring/post"
+    capabilityRef: "capabilities/shared/bloom-credit-api.yaml#operations/enroll-monitoring"
+workflows:
+  - name: Bloom Credit Credit Intelligence
+    description: End-to-end credit intelligence workflow from consumer registration to monitoring.
+    capabilityRef: "capabilities/bloom-credit-credit-intelligence.yaml"
+personas:
+  - name: Fintech Developers
+    description: Developers building personal finance, lending, and credit-building applications.
+  - name: Lenders and Underwriters
+    description: Financial institutions using credit data for loan origination and risk assessment.
+  - name: Credit Counselors
+    description: Financial advisors helping consumers understand and improve their credit profiles.
+  - name: Consumer Finance Apps
+    description: Applications providing consumers with credit monitoring and score tracking.

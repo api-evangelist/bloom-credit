@@ -1,0 +1,38 @@
+{
+  "consumer_id": "cns_8f7d3a2b1c4e5f6a",
+  "trade_lines": [
+    {
+      "account_id": "tl_9a8b7c6d5e4f",
+      "bureau": "equifax",
+      "creditor_name": "Chase Bank",
+      "account_type": "revolving",
+      "account_status": "open",
+      "credit_limit": 10000,
+      "current_balance": 2400,
+      "utilization_ratio": 0.24,
+      "payment_status": "current",
+      "payment_history": "111111111111111111111111",
+      "opened_date": "2018-03-01",
+      "last_activity_date": "2026-01-10",
+      "times_30_days_late": 0,
+      "times_60_days_late": 0,
+      "times_90_days_late": 0
+    },
+    {
+      "account_id": "tl_1b2c3d4e5f6a",
+      "bureau": "equifax",
+      "creditor_name": "Wells Fargo Home Mortgage",
+      "account_type": "mortgage",
+      "account_status": "open",
+      "credit_limit": 350000,
+      "current_balance": 285000,
+      "payment_status": "current",
+      "payment_history": "111111111111111111111111",
+      "opened_date": "2019-06-15",
+      "last_activity_date": "2026-01-01",
+      "times_30_days_late": 0,
+      "times_60_days_late": 0,
+      "times_90_days_late": 0
+    }
+  ]
+}

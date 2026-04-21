@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-structure.org/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bloom-credit/main/json-structure/bloom-credit-credit-score-structure.json",
+  "title": "CreditScore",
+  "description": "A credit score from a specific bureau and scoring model.",
+  "type": "object",
+  "members": [
+    { "name": "bureau", "type": "string", "description": "Bureau: equifax, experian, or transunion." },
+    { "name": "score_type", "type": "string", "description": "Scoring model (FICO8, VANTAGE3, etc.)." },
+    { "name": "score", "type": "integer", "description": "Numerical credit score (300-850)." },
+    { "name": "score_range_min", "type": "integer", "description": "Minimum score in range." },
+    { "name": "score_range_max", "type": "integer", "description": "Maximum score in range." },
+    { "name": "factors", "type": "array", "description": "Factors affecting the credit score." }
+  ]
+}

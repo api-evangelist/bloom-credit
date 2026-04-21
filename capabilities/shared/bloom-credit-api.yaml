@@ -1,0 +1,53 @@
+name: Bloom Credit API
+description: >-
+  Credit data API providing access to consumer credit reports, scores,
+  trade lines, and monitoring capabilities from all three major bureaus.
+version: "1.0"
+baseUrl: https://api.bloomcredit.io/v1
+auth:
+  type: apikey
+  header: X-API-Key
+  description: API key obtained from the Bloom Credit developer portal
+operations:
+  - operationId: create-consumer
+    method: POST
+    path: /consumers
+    summary: Create Consumer
+    description: Register a consumer and obtain consent for credit data access.
+    tags:
+      - Consumers
+  - operationId: get-consumer
+    method: GET
+    path: /consumers/{consumer_id}
+    summary: Get Consumer
+    description: Retrieve a registered consumer's profile and status.
+    tags:
+      - Consumers
+  - operationId: get-credit-reports
+    method: GET
+    path: /consumers/{consumer_id}/credit-reports
+    summary: Get Credit Reports
+    description: Retrieve full credit reports from one or more bureaus.
+    tags:
+      - Credit Reports
+  - operationId: get-credit-scores
+    method: GET
+    path: /consumers/{consumer_id}/scores
+    summary: Get Credit Scores
+    description: Retrieve credit scores from specified bureaus.
+    tags:
+      - Credit Scores
+  - operationId: get-trade-lines
+    method: GET
+    path: /consumers/{consumer_id}/trade-lines
+    summary: Get Trade Lines
+    description: Retrieve individual trade line account data.
+    tags:
+      - Trade Lines
+  - operationId: enroll-monitoring
+    method: POST
+    path: /consumers/{consumer_id}/monitoring
+    summary: Enroll Monitoring
+    description: Enroll a consumer in credit monitoring for real-time alerts.
+    tags:
+      - Monitoring

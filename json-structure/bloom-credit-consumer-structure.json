@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-structure.org/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bloom-credit/main/json-structure/bloom-credit-consumer-structure.json",
+  "title": "Consumer",
+  "description": "A registered consumer with consent for credit data access.",
+  "type": "object",
+  "members": [
+    { "name": "consumer_id", "type": "string", "description": "Unique identifier for the consumer." },
+    { "name": "first_name", "type": "string", "description": "Consumer's first name." },
+    { "name": "last_name", "type": "string", "description": "Consumer's last name." },
+    { "name": "email", "type": "string", "description": "Consumer's email address." },
+    { "name": "status", "type": "string", "description": "Account status: ACTIVE, INACTIVE, PENDING." },
+    { "name": "created_at", "type": "string", "description": "Timestamp when consumer was registered." }
+  ]
+}

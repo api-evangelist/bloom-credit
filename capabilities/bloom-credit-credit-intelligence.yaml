@@ -1,0 +1,50 @@
+name: Bloom Credit Credit Intelligence
+description: >-
+  End-to-end credit intelligence capability for fintech applications, lenders,
+  and financial services platforms. Enables consumer registration, tri-bureau
+  credit report retrieval, score analysis, trade line inspection, and real-time
+  credit monitoring with webhook alerts.
+version: "1.0"
+persona:
+  - Fintech Developers
+  - Lenders and Underwriters
+  - Credit Counselors
+  - Consumer Finance Apps
+servers:
+  rest:
+    url: http://localhost:8080
+    protocol: rest
+  mcp:
+    url: http://localhost:9090
+    protocol: mcp
+tools:
+  - name: create-consumer
+    operationId: create-consumer
+    source:
+      capability: capabilities/shared/bloom-credit-api.yaml
+    description: Register a consumer for credit data access.
+  - name: get-consumer
+    operationId: get-consumer
+    source:
+      capability: capabilities/shared/bloom-credit-api.yaml
+    description: Retrieve a consumer's profile and status.
+  - name: get-credit-reports
+    operationId: get-credit-reports
+    source:
+      capability: capabilities/shared/bloom-credit-api.yaml
+    description: Pull full credit reports from Equifax, Experian, and/or TransUnion.
+  - name: get-credit-scores
+    operationId: get-credit-scores
+    source:
+      capability: capabilities/shared/bloom-credit-api.yaml
+    description: Retrieve FICO or VantageScore credit scores from one or more bureaus.
+  - name: get-trade-lines
+    operationId: get-trade-lines
+    source:
+      capability: capabilities/shared/bloom-credit-api.yaml
+    description: Retrieve individual account and trade line data for credit analysis.
+  - name: enroll-monitoring
+    operationId: enroll-monitoring
+    source:
+      capability: capabilities/shared/bloom-credit-api.yaml
+    description: Enroll a consumer in credit monitoring to receive real-time alerts.
