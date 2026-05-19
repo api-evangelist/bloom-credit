@@ -1,0 +1,89 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Bloom Credit API — Monitoring
+  description: 'Bloom Credit API — Monitoring. 1 operations. Lead operation: Bloom Credit Enroll Monitoring. Self-contained
+    Naftiko capability covering one Bloom Credit business surface.'
+  tags:
+  - Bloom Credit
+  - Monitoring
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BLOOM_CREDIT_API_KEY: BLOOM_CREDIT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: bloom-credit-monitoring
+    baseUri: https://api.bloomcredit.io/v1
+    description: Bloom Credit API — Monitoring business capability. Self-contained, no shared references.
+    resources:
+    - name: consumers-consumer_id-monitoring
+      path: /consumers/{consumer_id}/monitoring
+      operations:
+      - name: enrollmonitoring
+        method: POST
+        description: Bloom Credit Enroll Monitoring
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: consumer_id
+          in: path
+          type: string
+          description: Unique identifier for the consumer.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-API-Key
+      value: '{{env.BLOOM_CREDIT_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: bloom-credit-monitoring-rest
+    port: 8080
+    description: REST adapter for Bloom Credit API — Monitoring. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/consumers/{consumer-id}/monitoring
+      name: consumers-consumer-id-monitoring
+      description: REST surface for consumers-consumer_id-monitoring.
+      operations:
+      - method: POST
+        name: enrollmonitoring
+        description: Bloom Credit Enroll Monitoring
+        call: bloom-credit-monitoring.enrollmonitoring
+        with:
+          consumer_id: rest.consumer_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: bloom-credit-monitoring-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Bloom Credit API — Monitoring. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: bloom-credit-enroll-monitoring
+      description: Bloom Credit Enroll Monitoring
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: bloom-credit-monitoring.enrollmonitoring
+      with:
+        consumer_id: tools.consumer_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,94 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Bloom Credit API — Credit Reports
+  description: 'Bloom Credit API — Credit Reports. 1 operations. Lead operation: Bloom Credit Get Credit Reports. Self-contained
+    Naftiko capability covering one Bloom Credit business surface.'
+  tags:
+  - Bloom Credit
+  - Credit Reports
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BLOOM_CREDIT_API_KEY: BLOOM_CREDIT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: bloom-credit-credit-reports
+    baseUri: https://api.bloomcredit.io/v1
+    description: Bloom Credit API — Credit Reports business capability. Self-contained, no shared references.
+    resources:
+    - name: consumers-consumer_id-credit-reports
+      path: /consumers/{consumer_id}/credit-reports
+      operations:
+      - name: getcreditreports
+        method: GET
+        description: Bloom Credit Get Credit Reports
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: consumer_id
+          in: path
+          type: string
+          description: Unique identifier for the consumer.
+          required: true
+        - name: bureaus
+          in: query
+          type: string
+          description: Comma-separated list of bureaus (equifax,experian,transunion). Defaults to all three.
+        - name: refresh
+          in: query
+          type: boolean
+          description: If true, pulls a fresh report from the bureau.
+    authentication:
+      type: apikey
+      key: X-API-Key
+      value: '{{env.BLOOM_CREDIT_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: bloom-credit-credit-reports-rest
+    port: 8080
+    description: REST adapter for Bloom Credit API — Credit Reports. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/consumers/{consumer-id}/credit-reports
+      name: consumers-consumer-id-credit-reports
+      description: REST surface for consumers-consumer_id-credit-reports.
+      operations:
+      - method: GET
+        name: getcreditreports
+        description: Bloom Credit Get Credit Reports
+        call: bloom-credit-credit-reports.getcreditreports
+        with:
+          consumer_id: rest.consumer_id
+          bureaus: rest.bureaus
+          refresh: rest.refresh
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: bloom-credit-credit-reports-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Bloom Credit API — Credit Reports. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: bloom-credit-get-credit-reports
+      description: Bloom Credit Get Credit Reports
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: bloom-credit-credit-reports.getcreditreports
+      with:
+        consumer_id: tools.consumer_id
+        bureaus: tools.bureaus
+        refresh: tools.refresh
+      outputParameters:
+      - type: object
+        mapping: $.

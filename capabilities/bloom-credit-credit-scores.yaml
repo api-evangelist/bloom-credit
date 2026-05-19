@@ -1,0 +1,94 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Bloom Credit API — Credit Scores
+  description: 'Bloom Credit API — Credit Scores. 1 operations. Lead operation: Bloom Credit Get Credit Scores. Self-contained
+    Naftiko capability covering one Bloom Credit business surface.'
+  tags:
+  - Bloom Credit
+  - Credit Scores
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BLOOM_CREDIT_API_KEY: BLOOM_CREDIT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: bloom-credit-credit-scores
+    baseUri: https://api.bloomcredit.io/v1
+    description: Bloom Credit API — Credit Scores business capability. Self-contained, no shared references.
+    resources:
+    - name: consumers-consumer_id-scores
+      path: /consumers/{consumer_id}/scores
+      operations:
+      - name: getcreditscores
+        method: GET
+        description: Bloom Credit Get Credit Scores
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: consumer_id
+          in: path
+          type: string
+          description: Unique identifier for the consumer.
+          required: true
+        - name: bureaus
+          in: query
+          type: string
+          description: Comma-separated list of bureaus.
+        - name: score_type
+          in: query
+          type: string
+          description: Score model type (e.g., FICO8, VANTAGE3).
+    authentication:
+      type: apikey
+      key: X-API-Key
+      value: '{{env.BLOOM_CREDIT_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: bloom-credit-credit-scores-rest
+    port: 8080
+    description: REST adapter for Bloom Credit API — Credit Scores. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/consumers/{consumer-id}/scores
+      name: consumers-consumer-id-scores
+      description: REST surface for consumers-consumer_id-scores.
+      operations:
+      - method: GET
+        name: getcreditscores
+        description: Bloom Credit Get Credit Scores
+        call: bloom-credit-credit-scores.getcreditscores
+        with:
+          consumer_id: rest.consumer_id
+          bureaus: rest.bureaus
+          score_type: rest.score_type
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: bloom-credit-credit-scores-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Bloom Credit API — Credit Scores. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: bloom-credit-get-credit-scores
+      description: Bloom Credit Get Credit Scores
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: bloom-credit-credit-scores.getcreditscores
+      with:
+        consumer_id: tools.consumer_id
+        bureaus: tools.bureaus
+        score_type: tools.score_type
+      outputParameters:
+      - type: object
+        mapping: $.
