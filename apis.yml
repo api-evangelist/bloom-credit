@@ -126,6 +126,8 @@ common:
   - name: Plaid
     description: Complementary integration where Bloom Credit's credit data can be combined with Plaid's bank account and
       income verification for full financial profiles.
+- type: LLMsTxt
+  url: https://bloomcredit.io/llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
