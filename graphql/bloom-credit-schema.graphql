@@ -1,0 +1,640 @@
+"""
+Bloom Credit GraphQL Schema
+Conceptual schema for bureau data access and credit analytics.
+Source: https://api.bloomcredit.io/docs/
+"""
+
+# ─── Authentication & Access ─────────────────────────────────────────────────
+
+type APIKey {
+  id: ID!
+  key: String!
+  name: String
+  createdAt: String
+  expiresAt: String
+  scopes: [String!]
+}
+
+type Token {
+  accessToken: String!
+  tokenType: String!
+  expiresIn: Int!
+  scope: String
+}
+
+# ─── Consumer Identity ────────────────────────────────────────────────────────
+
+type SSN {
+  full: String
+  lastFour: String
+  masked: String
+}
+
+type DOB {
+  day: Int
+  month: Int
+  year: Int
+  formatted: String
+}
+
+type Address {
+  street1: String
+  street2: String
+  city: String
+  state: String
+  zip: String
+  country: String
+  type: String
+  current: Boolean
+}
+
+type ConsumerIdentity {
+  id: ID!
+  firstName: String
+  lastName: String
+  middleName: String
+  suffix: String
+  ssn: SSN
+  dob: DOB
+  addresses: [Address!]
+  phoneNumbers: [String!]
+  emails: [String!]
+}
+
+type ConsentDetails {
+  id: ID!
+  consumerId: ID!
+  consentGiven: Boolean!
+  consentDate: String
+  ipAddress: String
+  permissiblePurpose: PermissiblePurpose
+  consentText: String
+  expiresAt: String
+}
+
+type PermissiblePurpose {
+  code: String!
+  description: String!
+  fcraCompliant: Boolean!
+}
+
+type Consumer {
+  id: ID!
+  externalId: String
+  identity: ConsumerIdentity
+  consent: ConsentDetails
+  createdAt: String
+  updatedAt: String
+  status: String
+  monitoring: MonitoringDetails
+  reports: [CreditReport!]
+}
+
+type ConsumerDetails {
+  consumer: Consumer!
+  dataFreshnessDate: DataFreshnessDate
+  creditSummary: CreditSummary
+}
+
+# ─── Credit Report ────────────────────────────────────────────────────────────
+
+enum Bureau {
+  EQUIFAX
+  EXPERIAN
+  TRANSUNION
+}
+
+type DataFreshnessDate {
+  bureau: Bureau!
+  pulledAt: String!
+  reportDate: String!
+  expiresAt: String
+}
+
+type CreditReportDetails {
+  reportId: ID!
+  bureau: Bureau!
+  pulledAt: String!
+  reportDate: String!
+  scores: [CreditScore!]
+  tradelines: [Tradeline!]
+  inquiries: [Inquiry!]
+  publicRecords: [PublicRecord!]
+  collections: [Collection!]
+  creditSummary: CreditSummary
+  accountSummary: AccountSummary
+}
+
+type CreditReport {
+  id: ID!
+  consumerId: ID!
+  bureau: Bureau!
+  reportDetails: CreditReportDetails
+  freshnessDate: DataFreshnessDate
+  requestedAt: String!
+  status: String
+}
+
+# ─── Credit Scores ────────────────────────────────────────────────────────────
+
+type ScoreModel {
+  name: String!
+  version: String
+  provider: String
+  range: ScoreRange
+}
+
+type ScoreRange {
+  min: Int!
+  max: Int!
+}
+
+type FICO {
+  score: Int!
+  version: String!
+  bureau: Bureau!
+  factors: [ScoreFactor!]
+  date: String
+}
+
+type VantageScore {
+  score: Int!
+  version: String!
+  bureau: Bureau!
+  factors: [ScoreFactor!]
+  date: String
+}
+
+type ScoreFactor {
+  code: String!
+  description: String!
+  positive: Boolean
+}
+
+type CreditScore {
+  id: ID!
+  bureau: Bureau!
+  model: ScoreModel!
+  score: Int!
+  factors: [ScoreFactor!]
+  date: String
+  fico: FICO
+  vantageScore: VantageScore
+}
+
+# ─── Tradelines ───────────────────────────────────────────────────────────────
+
+enum TradelineType {
+  REVOLVING
+  INSTALLMENT
+  MORTGAGE
+  OPEN
+  COLLECTION
+  OTHER
+}
+
+type OpenDate {
+  month: Int
+  year: Int
+  formatted: String
+}
+
+type CloseDate {
+  month: Int
+  year: Int
+  formatted: String
+}
+
+type Balance {
+  amount: Float
+  currency: String
+  date: String
+}
+
+type CreditLimit {
+  amount: Float
+  currency: String
+}
+
+type PaymentHistory {
+  month: String
+  status: String
+  daysLate: Int
+}
+
+type AccountHistory {
+  months: [PaymentHistory!]
+  worstStatus: String
+  timesLate30: Int
+  timesLate60: Int
+  timesLate90: Int
+}
+
+type TradelineDetails {
+  creditorName: String
+  accountNumber: String
+  accountType: TradelineType
+  bureau: Bureau!
+  openDate: OpenDate
+  closeDate: CloseDate
+  balance: Balance
+  creditLimit: CreditLimit
+  paymentHistory: AccountHistory
+  status: String
+  statusDate: String
+  monthlyPayment: Float
+  terms: String
+  highBalance: Float
+  scheduledPaymentAmount: Float
+}
+
+type Tradeline {
+  id: ID!
+  details: TradelineDetails!
+  current: Boolean
+  derogatory: Boolean
+}
+
+# ─── Inquiries ────────────────────────────────────────────────────────────────
+
+enum InquiryType {
+  HARD
+  SOFT
+}
+
+type InquiryDate {
+  day: Int
+  month: Int
+  year: Int
+  formatted: String
+}
+
+type InquiryDetails {
+  creditorName: String
+  bureau: Bureau!
+  type: InquiryType!
+  date: InquiryDate
+  subscriberCode: String
+  purpose: String
+}
+
+type Inquiry {
+  id: ID!
+  details: InquiryDetails!
+}
+
+# ─── Public Records ───────────────────────────────────────────────────────────
+
+enum PublicRecordType {
+  BANKRUPTCY
+  JUDGEMENT
+  TAX_LIEN
+  CIVIL_SUIT
+  OTHER
+}
+
+type BankruptcyDetails {
+  chapter: String
+  filedDate: String
+  dischargeDate: String
+  dismissDate: String
+  assets: Float
+  liabilities: Float
+  attorney: String
+  court: String
+}
+
+type Judgement {
+  caseNumber: String
+  filedDate: String
+  satisfiedDate: String
+  amount: Float
+  plaintiff: String
+  court: String
+}
+
+type TaxLien {
+  filedDate: String
+  releasedDate: String
+  amount: Float
+  taxingAuthority: String
+  identificationNumber: String
+}
+
+type PublicRecord {
+  id: ID!
+  type: PublicRecordType!
+  bureau: Bureau!
+  filedDate: String
+  status: String
+  amount: Float
+  bankruptcy: BankruptcyDetails
+  judgement: Judgement
+  taxLien: TaxLien
+}
+
+# ─── Collections ─────────────────────────────────────────────────────────────
+
+type CollectionAmount {
+  original: Float
+  current: Float
+  currency: String
+}
+
+type CollectionDetails {
+  collectorName: String
+  originalCreditor: String
+  accountType: String
+  bureau: Bureau!
+  openDate: OpenDate
+  closeDate: CloseDate
+  amount: CollectionAmount
+  status: String
+  accountNumber: String
+}
+
+type Collection {
+  id: ID!
+  details: CollectionDetails!
+  derogatory: Boolean
+}
+
+# ─── Summary Types ────────────────────────────────────────────────────────────
+
+type TotalAccounts {
+  count: Int!
+  byType: [AccountTypeCount!]
+}
+
+type AccountTypeCount {
+  type: TradelineType!
+  count: Int!
+}
+
+type OpenAccounts {
+  count: Int!
+  totalBalance: Float
+  totalCreditLimit: Float
+}
+
+type DelinquentAccounts {
+  count: Int!
+  totalAmount: Float
+}
+
+type UtilizationRate {
+  overall: Float
+  byAccount: [AccountUtilization!]
+}
+
+type AccountUtilization {
+  accountId: ID!
+  creditorName: String
+  utilization: Float
+}
+
+type OldestAccount {
+  openDate: OpenDate
+  creditorName: String
+  type: TradelineType
+  ageInMonths: Int
+}
+
+type NewestAccount {
+  openDate: OpenDate
+  creditorName: String
+  type: TradelineType
+  ageInMonths: Int
+}
+
+type AgeOfCredit {
+  averageAgeMonths: Int
+  oldestAccountMonths: Int
+  newestAccountMonths: Int
+}
+
+type HardInquiries {
+  last12Months: Int!
+  last24Months: Int!
+  total: Int!
+}
+
+type AccountSummary {
+  totalAccounts: TotalAccounts
+  openAccounts: OpenAccounts
+  delinquentAccounts: DelinquentAccounts
+  closedAccounts: Int
+  collectionsCount: Int
+  publicRecordsCount: Int
+}
+
+type CreditSummary {
+  bureau: Bureau!
+  scores: [CreditScore!]
+  utilizationRate: UtilizationRate
+  oldestAccount: OldestAccount
+  newestAccount: NewestAccount
+  ageOfCredit: AgeOfCredit
+  hardInquiries: HardInquiries
+  accountSummary: AccountSummary
+  negativeItems: Int
+  onTimePaymentRate: Float
+}
+
+# ─── Disputes & Fraud ────────────────────────────────────────────────────────
+
+enum DisputeStatus {
+  SUBMITTED
+  IN_REVIEW
+  RESOLVED
+  CLOSED
+  ESCALATED
+}
+
+type DisputeDetails {
+  itemId: ID!
+  itemType: String!
+  bureau: Bureau!
+  reason: String!
+  description: String
+  supportingDocuments: [String!]
+  submittedAt: String!
+  resolvedAt: String
+  outcome: String
+}
+
+type Dispute {
+  id: ID!
+  consumerId: ID!
+  status: DisputeStatus!
+  details: DisputeDetails!
+  updatedAt: String
+}
+
+type FraudAlert {
+  id: ID!
+  consumerId: ID!
+  bureau: Bureau!
+  type: String
+  activatedAt: String
+  expiresAt: String
+  active: Boolean!
+  contactPhone: String
+}
+
+type CreditFreeze {
+  id: ID!
+  consumerId: ID!
+  bureau: Bureau!
+  active: Boolean!
+  frozenAt: String
+  thawedAt: String
+  pin: String
+}
+
+# ─── Monitoring ───────────────────────────────────────────────────────────────
+
+type MonitoringDetails {
+  id: ID!
+  consumerId: ID!
+  active: Boolean!
+  enrolledAt: String
+  cancelledAt: String
+  bureaus: [Bureau!]
+  webhookUrl: String
+  alertTypes: [String!]
+}
+
+type Webhook {
+  id: ID!
+  url: String!
+  secret: String
+  events: [String!]!
+  active: Boolean!
+  createdAt: String
+  lastTriggeredAt: String
+}
+
+# ─── Queries ─────────────────────────────────────────────────────────────────
+
+type Query {
+  consumer(id: ID!): Consumer
+  consumers(limit: Int, offset: Int, status: String): [Consumer!]
+  consumerDetails(id: ID!): ConsumerDetails
+
+  creditReport(id: ID!): CreditReport
+  creditReports(consumerId: ID!, bureau: Bureau): [CreditReport!]
+
+  creditScore(consumerId: ID!, bureau: Bureau!, model: String): CreditScore
+  creditScores(consumerId: ID!): [CreditScore!]
+
+  tradeline(id: ID!): Tradeline
+  tradelines(consumerId: ID!, bureau: Bureau): [Tradeline!]
+
+  inquiry(id: ID!): Inquiry
+  inquiries(consumerId: ID!, bureau: Bureau, type: InquiryType): [Inquiry!]
+
+  publicRecord(id: ID!): PublicRecord
+  publicRecords(consumerId: ID!, bureau: Bureau, type: PublicRecordType): [PublicRecord!]
+
+  collection(id: ID!): Collection
+  collections(consumerId: ID!, bureau: Bureau): [Collection!]
+
+  creditSummary(consumerId: ID!, bureau: Bureau!): CreditSummary
+  accountSummary(consumerId: ID!, bureau: Bureau!): AccountSummary
+
+  dispute(id: ID!): Dispute
+  disputes(consumerId: ID!, status: DisputeStatus): [Dispute!]
+
+  fraudAlert(id: ID!): FraudAlert
+  fraudAlerts(consumerId: ID!): [FraudAlert!]
+
+  creditFreeze(consumerId: ID!, bureau: Bureau!): CreditFreeze
+  creditFreezes(consumerId: ID!): [CreditFreeze!]
+
+  monitoringDetails(consumerId: ID!): MonitoringDetails
+
+  webhook(id: ID!): Webhook
+  webhooks: [Webhook!]
+
+  apiKey(id: ID!): APIKey
+  apiKeys: [APIKey!]
+}
+
+# ─── Mutations ────────────────────────────────────────────────────────────────
+
+input CreateConsumerInput {
+  externalId: String
+  firstName: String!
+  lastName: String!
+  ssn: String!
+  dob: String!
+  address: AddressInput!
+  email: String
+  phone: String
+  consentGiven: Boolean!
+  permissiblePurposeCode: String!
+}
+
+input AddressInput {
+  street1: String!
+  street2: String
+  city: String!
+  state: String!
+  zip: String!
+  country: String
+}
+
+input PullCreditReportInput {
+  consumerId: ID!
+  bureaus: [Bureau!]!
+  permissiblePurposeCode: String!
+}
+
+input CreateDisputeInput {
+  consumerId: ID!
+  itemId: ID!
+  itemType: String!
+  bureau: Bureau!
+  reason: String!
+  description: String
+}
+
+input EnrollMonitoringInput {
+  consumerId: ID!
+  bureaus: [Bureau!]!
+  webhookUrl: String
+  alertTypes: [String!]
+}
+
+input CreateWebhookInput {
+  url: String!
+  events: [String!]!
+  secret: String
+}
+
+type Mutation {
+  createConsumer(input: CreateConsumerInput!): Consumer
+  updateConsumer(id: ID!, input: CreateConsumerInput!): Consumer
+  deleteConsumer(id: ID!): Boolean
+
+  pullCreditReport(input: PullCreditReportInput!): CreditReport
+
+  createDispute(input: CreateDisputeInput!): Dispute
+  updateDisputeStatus(id: ID!, status: DisputeStatus!): Dispute
+
+  activateFraudAlert(consumerId: ID!, bureau: Bureau!, contactPhone: String): FraudAlert
+  removeFraudAlert(id: ID!): Boolean
+
+  freezeCredit(consumerId: ID!, bureau: Bureau!): CreditFreeze
+  thawCredit(consumerId: ID!, bureau: Bureau!): CreditFreeze
+
+  enrollMonitoring(input: EnrollMonitoringInput!): MonitoringDetails
+  cancelMonitoring(consumerId: ID!): Boolean
+
+  createWebhook(input: CreateWebhookInput!): Webhook
+  updateWebhook(id: ID!, input: CreateWebhookInput!): Webhook
+  deleteWebhook(id: ID!): Boolean
+
+  generateToken(apiKey: String!): Token
+}
