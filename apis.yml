@@ -44,15 +44,15 @@ apis:
     url: rules/bloom-credit-spectral-rules.yml
   - type: Vocabulary
     url: vocabulary/bloom-credit-vocabulary.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/bloom-credit-consumers.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/bloom-credit-credit-reports.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/bloom-credit-credit-scores.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/bloom-credit-monitoring.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/bloom-credit-trade-lines.yaml
   - url: graphql/bloom-credit-graphql.md
     type: GraphQL
@@ -67,10 +67,10 @@ common:
   url: https://bloomcredit.io/
 - type: GitHubOrganization
   url: https://github.com/bloomcredit
-- type: SDK
+- type: SDKs
   url: https://github.com/bloomcredit/bloomPy
   title: Python SDK
-- type: SDK
+- type: SDKs
   url: https://github.com/bloomcredit/bloomTypescript
   title: TypeScript SDK
 - type: TermsOfService
@@ -133,7 +133,7 @@ common:
     description: Complementary integration where Bloom Credit's credit data can be
       combined with Plaid's bank account and income verification for full financial
       profiles.
-- type: LLMsTxt
+- type: LlmsText
   url: https://bloomcredit.io/llms.txt
 maintainers:
 - FN: Kin Lane
