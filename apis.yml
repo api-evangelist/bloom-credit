@@ -57,6 +57,10 @@ apis:
   - url: graphql/bloom-credit-graphql.md
     type: GraphQL
 common:
+- type: DomainSecurity
+  url: security/bloom-credit-domain-security.yml
+- type: Authentication
+  url: authentication/bloom-credit-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/bloomcredit
 - type: Website
@@ -135,6 +139,8 @@ common:
       profiles.
 - type: LlmsText
   url: https://bloomcredit.io/llms.txt
+- url: https://bloomcredit.io/feed/
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
