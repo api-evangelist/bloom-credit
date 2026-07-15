@@ -57,6 +57,8 @@ apis:
   - url: graphql/bloom-credit-graphql.md
     type: GraphQL
 common:
+- type: AgenticAccess
+  url: agentic-access/bloom-credit-agentic-access.yml
 - type: DomainSecurity
   url: security/bloom-credit-domain-security.yml
 - type: Authentication
