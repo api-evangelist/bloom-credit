@@ -1,0 +1,165 @@
+openapi: 3.0.3
+info:
+  title: Bloom Credit Consumers Credit Reports API
+  description: Bloom Credit API provides access to consumer credit data from all three major credit bureaus (Equifax, Experian, TransUnion). Enables fintech applications, lenders, and financial services platforms to retrieve credit reports, credit scores, trade line data, and credit monitoring capabilities for consumers who have granted consent.
+  version: '1.0'
+  contact:
+    name: Bloom Credit Developer Support
+    url: https://bloomcredit.io
+  termsOfService: https://bloomcredit.io/terms
+  license:
+    name: Proprietary
+    url: https://bloomcredit.io/terms
+servers:
+- url: https://api.bloomcredit.io/v1
+  description: Production
+- url: https://api.sandbox.bloomcredit.io/v1
+  description: Sandbox
+security:
+- ApiKeyAuth: []
+tags:
+- name: Credit Reports
+  description: Full credit bureau report retrieval
+paths:
+  /consumers/{consumer_id}/credit-reports:
+    get:
+      operationId: get-credit-reports
+      summary: Bloom Credit Get Credit Reports
+      description: Retrieves credit reports for the specified consumer from one or more credit bureaus. Returns structured trade line, inquiry, and public record data.
+      tags:
+      - Credit Reports
+      parameters:
+      - name: consumer_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Unique identifier for the consumer.
+      - name: bureaus
+        in: query
+        schema:
+          type: string
+        description: Comma-separated list of bureaus (equifax,experian,transunion). Defaults to all three.
+        example: equifax,experian,transunion
+      - name: refresh
+        in: query
+        schema:
+          type: boolean
+        description: If true, pulls a fresh report from the bureau.
+      responses:
+        '200':
+          description: Credit reports retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditReportResponse'
+              examples:
+                credit-reports:
+                  summary: Consumer credit reports
+                  value:
+                    consumer_id: cns_8f7d3a2b1c4e5f6a
+                    reports:
+                    - bureau: equifax
+                      pull_date: '2026-01-15T10:05:00Z'
+                      scores:
+                      - score_type: FICO8
+                        score: 720
+                        score_range_min: 300
+                        score_range_max: 850
+                      trade_lines_count: 8
+                      open_accounts: 5
+                      total_balance: 15200
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 200
+        dispatcher: URI_PARTS
+        dispatcherRules: consumer_id
+components:
+  schemas:
+    CreditReport:
+      type: object
+      description: A credit report from a specific bureau.
+      properties:
+        bureau:
+          type: string
+          enum:
+          - equifax
+          - experian
+          - transunion
+          example: equifax
+        pull_date:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:05:00Z'
+        scores:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditScore'
+        trade_lines_count:
+          type: integer
+          example: 8
+        open_accounts:
+          type: integer
+          example: 5
+        total_balance:
+          type: integer
+          description: Total balance across all accounts in USD cents.
+          example: 15200
+    CreditReportResponse:
+      type: object
+      properties:
+        consumer_id:
+          type: string
+          example: cns_8f7d3a2b1c4e5f6a
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditReport'
+    CreditScore:
+      type: object
+      description: A credit score from a specific bureau and scoring model.
+      properties:
+        bureau:
+          type: string
+          description: Credit bureau providing the score.
+          enum:
+          - equifax
+          - experian
+          - transunion
+          example: equifax
+        score_type:
+          type: string
+          description: Scoring model used.
+          example: FICO8
+        score:
+          type: integer
+          description: Numerical credit score value.
+          example: 720
+        score_range_min:
+          type: integer
+          description: Minimum score in the scoring model range.
+          example: 300
+        score_range_max:
+          type: integer
+          description: Maximum score in the scoring model range.
+          example: 850
+        factors:
+          type: array
+          description: Factors affecting the score.
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                example: PAYMENT_HISTORY
+              description:
+                type: string
+                example: Payments made on time
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API key obtained from the Bloom Credit developer portal
+x-generated-from: documentation
+x-source-url: https://bloomcredit.io

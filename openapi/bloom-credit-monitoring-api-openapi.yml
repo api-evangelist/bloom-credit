@@ -1,0 +1,148 @@
+openapi: 3.0.3
+info:
+  title: Bloom Credit Consumers Monitoring API
+  description: Bloom Credit API provides access to consumer credit data from all three major credit bureaus (Equifax, Experian, TransUnion). Enables fintech applications, lenders, and financial services platforms to retrieve credit reports, credit scores, trade line data, and credit monitoring capabilities for consumers who have granted consent.
+  version: '1.0'
+  contact:
+    name: Bloom Credit Developer Support
+    url: https://bloomcredit.io
+  termsOfService: https://bloomcredit.io/terms
+  license:
+    name: Proprietary
+    url: https://bloomcredit.io/terms
+servers:
+- url: https://api.bloomcredit.io/v1
+  description: Production
+- url: https://api.sandbox.bloomcredit.io/v1
+  description: Sandbox
+security:
+- ApiKeyAuth: []
+tags:
+- name: Monitoring
+  description: Credit monitoring and alerts
+paths:
+  /consumers/{consumer_id}/monitoring:
+    post:
+      operationId: enroll-monitoring
+      summary: Bloom Credit Enroll Monitoring
+      description: Enrolls a consumer in credit monitoring to receive alerts on credit changes.
+      tags:
+      - Monitoring
+      parameters:
+      - name: consumer_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Unique identifier for the consumer.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MonitoringEnrollRequest'
+            examples:
+              enroll-monitoring:
+                summary: Monitoring enrollment
+                value:
+                  bureaus:
+                  - equifax
+                  - experian
+                  - transunion
+                  alert_types:
+                  - NEW_ACCOUNT
+                  - INQUIRY
+                  - DEROGATORY
+                  - SCORE_CHANGE
+                  webhook_url: https://example.com/webhooks/credit-alerts
+                x-microcks-default: true
+      responses:
+        '201':
+          description: Monitoring enrollment created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MonitoringEnrollment'
+              examples:
+                enrolled-monitoring:
+                  summary: Monitoring enrollment
+                  value:
+                    enrollment_id: mon_4b3c2d1e0f9a
+                    consumer_id: cns_8f7d3a2b1c4e5f6a
+                    status: ACTIVE
+                    bureaus:
+                    - equifax
+                    - experian
+                    - transunion
+                    created_at: '2026-01-15T10:10:00Z'
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 100
+        dispatcher: URI_PARTS
+        dispatcherRules: consumer_id
+components:
+  schemas:
+    MonitoringEnrollment:
+      type: object
+      description: Credit monitoring enrollment record.
+      properties:
+        enrollment_id:
+          type: string
+          description: Unique identifier for the monitoring enrollment.
+          example: mon_4b3c2d1e0f9a
+        consumer_id:
+          type: string
+          example: cns_8f7d3a2b1c4e5f6a
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - INACTIVE
+          - PAUSED
+          example: ACTIVE
+        bureaus:
+          type: array
+          items:
+            type: string
+          example:
+          - equifax
+          - experian
+          - transunion
+        created_at:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:10:00Z'
+    MonitoringEnrollRequest:
+      type: object
+      properties:
+        bureaus:
+          type: array
+          items:
+            type: string
+          example:
+          - equifax
+          - experian
+          - transunion
+        alert_types:
+          type: array
+          description: Types of changes to monitor.
+          items:
+            type: string
+          example:
+          - NEW_ACCOUNT
+          - INQUIRY
+          - DEROGATORY
+          - SCORE_CHANGE
+        webhook_url:
+          type: string
+          format: uri
+          description: URL to receive credit monitoring alerts.
+          example: https://example.com/webhooks/credit-alerts
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API key obtained from the Bloom Credit developer portal
+x-generated-from: documentation
+x-source-url: https://bloomcredit.io

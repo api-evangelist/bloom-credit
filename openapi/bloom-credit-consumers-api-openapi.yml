@@ -1,0 +1,200 @@
+openapi: 3.0.3
+info:
+  title: Bloom Credit Consumers API
+  description: Bloom Credit API provides access to consumer credit data from all three major credit bureaus (Equifax, Experian, TransUnion). Enables fintech applications, lenders, and financial services platforms to retrieve credit reports, credit scores, trade line data, and credit monitoring capabilities for consumers who have granted consent.
+  version: '1.0'
+  contact:
+    name: Bloom Credit Developer Support
+    url: https://bloomcredit.io
+  termsOfService: https://bloomcredit.io/terms
+  license:
+    name: Proprietary
+    url: https://bloomcredit.io/terms
+servers:
+- url: https://api.bloomcredit.io/v1
+  description: Production
+- url: https://api.sandbox.bloomcredit.io/v1
+  description: Sandbox
+security:
+- ApiKeyAuth: []
+tags:
+- name: Consumers
+  description: Consumer identity and registration
+paths:
+  /consumers:
+    post:
+      operationId: create-consumer
+      summary: Bloom Credit Create Consumer
+      description: Registers a new consumer and obtains consent for credit data access. Returns a consumer_id used for subsequent credit data requests.
+      tags:
+      - Consumers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConsumerRequest'
+            examples:
+              create-consumer:
+                summary: Register a consumer
+                value:
+                  first_name: Jane
+                  last_name: Smith
+                  date_of_birth: '1985-06-15'
+                  ssn: 123-45-6789
+                  address:
+                    street: 456 Oak Avenue
+                    city: San Francisco
+                    state: CA
+                    zip_code: '94102'
+                  email: jane.smith@example.com
+                  phone: '+14155551234'
+                x-microcks-default: true
+      responses:
+        '201':
+          description: Consumer registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer'
+              examples:
+                created-consumer:
+                  summary: Created consumer
+                  value:
+                    consumer_id: cns_8f7d3a2b1c4e5f6a
+                    first_name: Jane
+                    last_name: Smith
+                    email: jane.smith@example.com
+                    status: ACTIVE
+                    created_at: '2026-01-15T10:00:00Z'
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 100
+        dispatcher: SCRIPT
+  /consumers/{consumer_id}:
+    get:
+      operationId: get-consumer
+      summary: Bloom Credit Get Consumer
+      description: Retrieves a registered consumer's profile and status.
+      tags:
+      - Consumers
+      parameters:
+      - name: consumer_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Unique identifier for the consumer.
+      responses:
+        '200':
+          description: Consumer retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer'
+              examples:
+                get-consumer:
+                  summary: Consumer profile
+                  value:
+                    consumer_id: cns_8f7d3a2b1c4e5f6a
+                    first_name: Jane
+                    last_name: Smith
+                    email: jane.smith@example.com
+                    status: ACTIVE
+                    created_at: '2026-01-15T10:00:00Z'
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 50
+        dispatcher: URI_PARTS
+        dispatcherRules: consumer_id
+components:
+  schemas:
+    CreateConsumerRequest:
+      type: object
+      required:
+      - first_name
+      - last_name
+      - date_of_birth
+      - ssn
+      - address
+      properties:
+        first_name:
+          type: string
+          example: Jane
+        last_name:
+          type: string
+          example: Smith
+        date_of_birth:
+          type: string
+          format: date
+          example: '1985-06-15'
+        ssn:
+          type: string
+          description: Social Security Number for identity verification.
+          example: 123-45-6789
+        address:
+          $ref: '#/components/schemas/Address'
+        email:
+          type: string
+          format: email
+          example: jane.smith@example.com
+        phone:
+          type: string
+          example: '+14155551234'
+    Consumer:
+      type: object
+      description: A registered consumer with consent for credit data access.
+      properties:
+        consumer_id:
+          type: string
+          description: Unique identifier for the consumer.
+          example: cns_8f7d3a2b1c4e5f6a
+        first_name:
+          type: string
+          description: Consumer's first name.
+          example: Jane
+        last_name:
+          type: string
+          description: Consumer's last name.
+          example: Smith
+        email:
+          type: string
+          format: email
+          description: Consumer's email address.
+          example: jane.smith@example.com
+        status:
+          type: string
+          description: Consumer account status.
+          enum:
+          - ACTIVE
+          - INACTIVE
+          - PENDING
+          example: ACTIVE
+        created_at:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:00:00Z'
+    Address:
+      type: object
+      description: Physical mailing address.
+      properties:
+        street:
+          type: string
+          example: 456 Oak Avenue
+        city:
+          type: string
+          example: San Francisco
+        state:
+          type: string
+          example: CA
+        zip_code:
+          type: string
+          example: '94102'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API key obtained from the Bloom Credit developer portal
+x-generated-from: documentation
+x-source-url: https://bloomcredit.io

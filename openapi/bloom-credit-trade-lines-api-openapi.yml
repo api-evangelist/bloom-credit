@@ -1,0 +1,145 @@
+openapi: 3.0.3
+info:
+  title: Bloom Credit Consumers Trade Lines API
+  description: Bloom Credit API provides access to consumer credit data from all three major credit bureaus (Equifax, Experian, TransUnion). Enables fintech applications, lenders, and financial services platforms to retrieve credit reports, credit scores, trade line data, and credit monitoring capabilities for consumers who have granted consent.
+  version: '1.0'
+  contact:
+    name: Bloom Credit Developer Support
+    url: https://bloomcredit.io
+  termsOfService: https://bloomcredit.io/terms
+  license:
+    name: Proprietary
+    url: https://bloomcredit.io/terms
+servers:
+- url: https://api.bloomcredit.io/v1
+  description: Production
+- url: https://api.sandbox.bloomcredit.io/v1
+  description: Sandbox
+security:
+- ApiKeyAuth: []
+tags:
+- name: Trade Lines
+  description: Individual account and trade line data
+paths:
+  /consumers/{consumer_id}/trade-lines:
+    get:
+      operationId: get-trade-lines
+      summary: Bloom Credit Get Trade Lines
+      description: Retrieves individual trade line (account) data for the consumer.
+      tags:
+      - Trade Lines
+      parameters:
+      - name: consumer_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Unique identifier for the consumer.
+      - name: bureau
+        in: query
+        schema:
+          type: string
+        description: Bureau to pull trade lines from.
+      - name: account_type
+        in: query
+        schema:
+          type: string
+        description: Filter by account type (revolving, installment, mortgage).
+      responses:
+        '200':
+          description: Trade lines retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TradeLinesResponse'
+              examples:
+                trade-lines:
+                  summary: Consumer trade lines
+                  value:
+                    consumer_id: cns_8f7d3a2b1c4e5f6a
+                    trade_lines:
+                    - account_id: tl_9a8b7c6d5e4f
+                      bureau: equifax
+                      creditor_name: Chase Bank
+                      account_type: revolving
+                      account_status: open
+                      credit_limit: 10000
+                      current_balance: 2400
+                      payment_status: current
+                      opened_date: '2018-03-01'
+                      last_activity_date: '2026-01-10'
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 150
+        dispatcher: URI_PARTS
+        dispatcherRules: consumer_id
+components:
+  schemas:
+    TradeLinesResponse:
+      type: object
+      properties:
+        consumer_id:
+          type: string
+          example: cns_8f7d3a2b1c4e5f6a
+        trade_lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/TradeLine'
+    TradeLine:
+      type: object
+      description: An individual account or trade line in a credit report.
+      properties:
+        account_id:
+          type: string
+          description: Unique identifier for this trade line.
+          example: tl_9a8b7c6d5e4f
+        bureau:
+          type: string
+          enum:
+          - equifax
+          - experian
+          - transunion
+          example: equifax
+        creditor_name:
+          type: string
+          description: Name of the creditor or lender.
+          example: Chase Bank
+        account_type:
+          type: string
+          description: Type of account (revolving, installment, mortgage, etc.).
+          example: revolving
+        account_status:
+          type: string
+          description: Whether the account is open or closed.
+          enum:
+          - open
+          - closed
+          example: open
+        credit_limit:
+          type: integer
+          description: Credit limit in USD cents.
+          example: 10000
+        current_balance:
+          type: integer
+          description: Current balance in USD cents.
+          example: 2400
+        payment_status:
+          type: string
+          description: Current payment status.
+          example: current
+        opened_date:
+          type: string
+          format: date
+          example: '2018-03-01'
+        last_activity_date:
+          type: string
+          format: date
+          example: '2026-01-10'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API key obtained from the Bloom Credit developer portal
+x-generated-from: documentation
+x-source-url: https://bloomcredit.io

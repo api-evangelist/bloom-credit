@@ -1,0 +1,143 @@
+openapi: 3.0.3
+info:
+  title: Bloom Credit Consumers Credit Scores API
+  description: Bloom Credit API provides access to consumer credit data from all three major credit bureaus (Equifax, Experian, TransUnion). Enables fintech applications, lenders, and financial services platforms to retrieve credit reports, credit scores, trade line data, and credit monitoring capabilities for consumers who have granted consent.
+  version: '1.0'
+  contact:
+    name: Bloom Credit Developer Support
+    url: https://bloomcredit.io
+  termsOfService: https://bloomcredit.io/terms
+  license:
+    name: Proprietary
+    url: https://bloomcredit.io/terms
+servers:
+- url: https://api.bloomcredit.io/v1
+  description: Production
+- url: https://api.sandbox.bloomcredit.io/v1
+  description: Sandbox
+security:
+- ApiKeyAuth: []
+tags:
+- name: Credit Scores
+  description: Credit score retrieval
+paths:
+  /consumers/{consumer_id}/scores:
+    get:
+      operationId: get-credit-scores
+      summary: Bloom Credit Get Credit Scores
+      description: Retrieves credit scores for the consumer from specified bureaus.
+      tags:
+      - Credit Scores
+      parameters:
+      - name: consumer_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Unique identifier for the consumer.
+      - name: bureaus
+        in: query
+        schema:
+          type: string
+        description: Comma-separated list of bureaus.
+      - name: score_type
+        in: query
+        schema:
+          type: string
+        description: Score model type (e.g., FICO8, VANTAGE3).
+      responses:
+        '200':
+          description: Credit scores retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditScoreResponse'
+              examples:
+                credit-scores:
+                  summary: Consumer credit scores
+                  value:
+                    consumer_id: cns_8f7d3a2b1c4e5f6a
+                    scores:
+                    - bureau: equifax
+                      score_type: FICO8
+                      score: 720
+                      score_range_min: 300
+                      score_range_max: 850
+                      factors:
+                      - code: PAYMENT_HISTORY
+                        description: Payments made on time
+                    - bureau: experian
+                      score_type: FICO8
+                      score: 715
+                      score_range_min: 300
+                      score_range_max: 850
+                    - bureau: transunion
+                      score_type: FICO8
+                      score: 718
+                      score_range_min: 300
+                      score_range_max: 850
+                  x-microcks-default: true
+      x-microcks-operation:
+        delay: 150
+        dispatcher: URI_PARTS
+        dispatcherRules: consumer_id
+components:
+  schemas:
+    CreditScoreResponse:
+      type: object
+      properties:
+        consumer_id:
+          type: string
+          example: cns_8f7d3a2b1c4e5f6a
+        scores:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditScore'
+    CreditScore:
+      type: object
+      description: A credit score from a specific bureau and scoring model.
+      properties:
+        bureau:
+          type: string
+          description: Credit bureau providing the score.
+          enum:
+          - equifax
+          - experian
+          - transunion
+          example: equifax
+        score_type:
+          type: string
+          description: Scoring model used.
+          example: FICO8
+        score:
+          type: integer
+          description: Numerical credit score value.
+          example: 720
+        score_range_min:
+          type: integer
+          description: Minimum score in the scoring model range.
+          example: 300
+        score_range_max:
+          type: integer
+          description: Maximum score in the scoring model range.
+          example: 850
+        factors:
+          type: array
+          description: Factors affecting the score.
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                example: PAYMENT_HISTORY
+              description:
+                type: string
+                example: Payments made on time
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API key obtained from the Bloom Credit developer portal
+x-generated-from: documentation
+x-source-url: https://bloomcredit.io
