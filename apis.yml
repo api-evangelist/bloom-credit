@@ -15,31 +15,37 @@ tags:
 - Lending
 - Personal Finance
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/bloom-credit.png
 access: 3rd-Party
 created: '2025-02-24'
 modified: '2026-05-19'
 position: Consuming
 specificationVersion: '0.19'
 apis:
-- aid: bloom-credit:bloom-credit-api
-  name: Bloom Credit API
-  description: RESTful API providing access to consumer credit data from Equifax,
-    Experian, and TransUnion. Supports consumer registration with consent, tri-bureau
-    credit report retrieval, FICO and VantageScore credit scores, trade line data,
-    and real-time credit monitoring with webhook alerts. Requires API key authentication.
+- aid: bloom-credit:bloom-credit-consumers-api
+  name: Bloom Credit Consumers API
+  description: Consumer identity and registration
   humanURL: https://bloomcredit.io/
   tags:
-  - Credit Bureau
-  - Credit Reports
-  - Credit Scores
-  - Fintech
-  - Lending
+  - Consumers
   properties:
+  - type: OpenAPI
+    url: openapi/bloom-credit-consumers-api-openapi.yml
   - type: Documentation
     url: https://bloomcredit.io/
-  - type: OpenAPI
-    url: openapi/bloom-credit-api-openapi.yaml
   - type: SpectralRules
     url: rules/bloom-credit-spectral-rules.yml
   - type: Vocabulary
@@ -54,9 +60,119 @@ apis:
     url: capabilities/bloom-credit-monitoring.yaml
   - type: X-NaftikoCapability
     url: capabilities/bloom-credit-trade-lines.yaml
-  - url: graphql/bloom-credit-graphql.md
-    type: GraphQL
+  - type: GraphQL
+    url: graphql/bloom-credit-graphql.md
+- aid: bloom-credit:bloom-credit-credit-reports-api
+  name: Bloom Credit Credit Reports API
+  description: Full credit bureau report retrieval
+  humanURL: https://bloomcredit.io/
+  tags:
+  - Credit Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/bloom-credit-credit-reports-api-openapi.yml
+  - type: Documentation
+    url: https://bloomcredit.io/
+  - type: SpectralRules
+    url: rules/bloom-credit-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/bloom-credit-vocabulary.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/bloom-credit-consumers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/bloom-credit-credit-reports.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/bloom-credit-credit-scores.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/bloom-credit-monitoring.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/bloom-credit-trade-lines.yaml
+  - type: GraphQL
+    url: graphql/bloom-credit-graphql.md
+- aid: bloom-credit:bloom-credit-credit-scores-api
+  name: Bloom Credit Credit Scores API
+  description: Credit score retrieval
+  humanURL: https://bloomcredit.io/
+  tags:
+  - Credit Scores
+  properties:
+  - type: OpenAPI
+    url: openapi/bloom-credit-credit-scores-api-openapi.yml
+  - type: Documentation
+    url: https://bloomcredit.io/
+  - type: SpectralRules
+    url: rules/bloom-credit-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/bloom-credit-vocabulary.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/bloom-credit-consumers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/bloom-credit-credit-reports.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/bloom-credit-credit-scores.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/bloom-credit-monitoring.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/bloom-credit-trade-lines.yaml
+  - type: GraphQL
+    url: graphql/bloom-credit-graphql.md
+- aid: bloom-credit:bloom-credit-monitoring-api
+  name: Bloom Credit Monitoring API
+  description: Credit monitoring and alerts
+  humanURL: https://bloomcredit.io/
+  tags:
+  - Monitoring
+  properties:
+  - type: OpenAPI
+    url: openapi/bloom-credit-monitoring-api-openapi.yml
+  - type: Documentation
+    url: https://bloomcredit.io/
+  - type: SpectralRules
+    url: rules/bloom-credit-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/bloom-credit-vocabulary.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/bloom-credit-consumers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/bloom-credit-credit-reports.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/bloom-credit-credit-scores.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/bloom-credit-monitoring.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/bloom-credit-trade-lines.yaml
+  - type: GraphQL
+    url: graphql/bloom-credit-graphql.md
+- aid: bloom-credit:bloom-credit-trade-lines-api
+  name: Bloom Credit Trade Lines API
+  description: Individual account and trade line data
+  humanURL: https://bloomcredit.io/
+  tags:
+  - Trade Lines
+  properties:
+  - type: OpenAPI
+    url: openapi/bloom-credit-trade-lines-api-openapi.yml
+  - type: Documentation
+    url: https://bloomcredit.io/
+  - type: SpectralRules
+    url: rules/bloom-credit-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/bloom-credit-vocabulary.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/bloom-credit-consumers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/bloom-credit-credit-reports.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/bloom-credit-credit-scores.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/bloom-credit-monitoring.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/bloom-credit-trade-lines.yaml
+  - type: GraphQL
+    url: graphql/bloom-credit-graphql.md
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/bloom-credit/overview
 - type: AgenticAccess
   url: agentic-access/bloom-credit-agentic-access.yml
 - type: DomainSecurity
