@@ -1,0 +1,22 @@
+{
+  "provider": "bloom-credit",
+  "sources": [
+    "bloom-credit-consumers-api-openapi.yml",
+    "bloom-credit-credit-reports-api-openapi.yml",
+    "bloom-credit-credit-scores-api-openapi.yml",
+    "bloom-credit-monitoring-api-openapi.yml",
+    "bloom-credit-trade-lines-api-openapi.yml"
+  ],
+  "outputs": [
+    "bloom-credit-consumers-api-openapi.yml",
+    "bloom-credit-credit-reports-api-openapi.yml",
+    "bloom-credit-credit-scores-api-openapi.yml",
+    "bloom-credit-monitoring-api-openapi.yml",
+    "bloom-credit-trade-lines-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

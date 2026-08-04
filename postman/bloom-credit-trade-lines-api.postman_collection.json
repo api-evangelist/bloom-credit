@@ -1,0 +1,181 @@
+{
+  "info": {
+    "_postman_id": "8174a65d-09c1-4d8e-9067-ed93f7f4bdbe",
+    "name": "Bloom Credit Consumers Trade Lines API",
+    "description": "Bloom Credit API provides access to consumer credit data from all three major credit bureaus (Equifax, Experian, TransUnion). Enables fintech applications, lenders, and financial services platforms to retrieve credit reports, credit scores, trade line data, and credit monitoring capabilities for consumers who have granted consent.\n\nContact Support:\n Name: Bloom Credit Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:13:50.000Z",
+    "updatedAt": "2026-07-28T01:13:50.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8174a65d-09c1-4d8e-9067-ed93f7f4bdbe"
+  },
+  "item": [
+    {
+      "name": "consumers",
+      "item": [
+        {
+          "name": "{consumer_id}",
+          "item": [
+            {
+              "name": "trade-lines",
+              "item": [
+                {
+                  "name": "Bloom Credit Get Trade Lines",
+                  "id": "144a98dd-5f59-4973-8120-2a851639707d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/consumers/:consumer_id/trade-lines?bureau=<string>&account_type=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "consumers",
+                        ":consumer_id",
+                        "trade-lines"
+                      ],
+                      "query": [
+                        {
+                          "description": "Bureau to pull trade lines from.",
+                          "key": "bureau",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by account type (revolving, installment, mortgage).",
+                          "key": "account_type",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "42c051f1-eb99-4be2-8a76-e2dcdd13fba8",
+                          "key": "consumer_id",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier for the consumer."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves individual trade line (account) data for the consumer."
+                  },
+                  "response": [
+                    {
+                      "id": "f9806e49-9235-464d-a672-40f6a17319a9",
+                      "name": "Trade lines retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/consumers/:consumer_id/trade-lines?bureau=<string>&account_type=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "consumers",
+                            ":consumer_id",
+                            "trade-lines"
+                          ],
+                          "query": [
+                            {
+                              "description": "Bureau to pull trade lines from.",
+                              "key": "bureau",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter by account type (revolving, installment, mortgage).",
+                              "key": "account_type",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "consumer_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"consumer_id\": \"<string>\",\n  \"trade_lines\": [\n    {\n      \"account_id\": \"<string>\",\n      \"bureau\": \"experian\",\n      \"creditor_name\": \"<string>\",\n      \"account_type\": \"<string>\",\n      \"account_status\": \"open\",\n      \"credit_limit\": \"<integer>\",\n      \"current_balance\": \"<integer>\",\n      \"payment_status\": \"<string>\",\n      \"opened_date\": \"<date>\",\n      \"last_activity_date\": \"<date>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"bureau\": \"experian\",\n      \"creditor_name\": \"<string>\",\n      \"account_type\": \"<string>\",\n      \"account_status\": \"closed\",\n      \"credit_limit\": \"<integer>\",\n      \"current_balance\": \"<integer>\",\n      \"payment_status\": \"<string>\",\n      \"opened_date\": \"<date>\",\n      \"last_activity_date\": \"<date>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:13:51.000Z",
+                      "updatedAt": "2026-07-28T01:13:51.000Z",
+                      "uid": "35240-f9806e49-9235-464d-a672-40f6a17319a9"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:13:51.000Z",
+                  "updatedAt": "2026-07-28T01:13:51.000Z",
+                  "uid": "35240-144a98dd-5f59-4973-8120-2a851639707d"
+                }
+              ],
+              "id": "ef1f0e5c-d4ce-4684-9c67-d55da557f11c",
+              "createdAt": "2026-07-28T01:13:51.000Z",
+              "updatedAt": "2026-07-28T01:13:51.000Z",
+              "uid": "35240-ef1f0e5c-d4ce-4684-9c67-d55da557f11c"
+            }
+          ],
+          "id": "377fa533-ef89-454d-899a-6334861c5871",
+          "createdAt": "2026-07-28T01:13:51.000Z",
+          "updatedAt": "2026-07-28T01:13:51.000Z",
+          "uid": "35240-377fa533-ef89-454d-899a-6334861c5871"
+        }
+      ],
+      "id": "3edf7a8e-d6db-42bd-b94f-4579c6dae2b2",
+      "createdAt": "2026-07-28T01:13:51.000Z",
+      "updatedAt": "2026-07-28T01:13:51.000Z",
+      "uid": "35240-3edf7a8e-d6db-42bd-b94f-4579c6dae2b2"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.bloomcredit.io/v1"
+    }
+  ]
+}
