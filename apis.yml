@@ -50,16 +50,6 @@ apis:
     url: rules/bloom-credit-spectral-rules.yml
   - type: Vocabulary
     url: vocabulary/bloom-credit-vocabulary.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-consumers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-credit-reports.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-credit-scores.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-monitoring.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-trade-lines.yaml
   - type: GraphQL
     url: graphql/bloom-credit-graphql.md
 - aid: bloom-credit:bloom-credit-credit-reports-api
@@ -77,16 +67,6 @@ apis:
     url: rules/bloom-credit-spectral-rules.yml
   - type: Vocabulary
     url: vocabulary/bloom-credit-vocabulary.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-consumers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-credit-reports.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-credit-scores.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-monitoring.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-trade-lines.yaml
   - type: GraphQL
     url: graphql/bloom-credit-graphql.md
 - aid: bloom-credit:bloom-credit-credit-scores-api
@@ -104,16 +84,6 @@ apis:
     url: rules/bloom-credit-spectral-rules.yml
   - type: Vocabulary
     url: vocabulary/bloom-credit-vocabulary.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-consumers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-credit-reports.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-credit-scores.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-monitoring.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-trade-lines.yaml
   - type: GraphQL
     url: graphql/bloom-credit-graphql.md
 - aid: bloom-credit:bloom-credit-monitoring-api
@@ -131,16 +101,6 @@ apis:
     url: rules/bloom-credit-spectral-rules.yml
   - type: Vocabulary
     url: vocabulary/bloom-credit-vocabulary.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-consumers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-credit-reports.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-credit-scores.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-monitoring.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-trade-lines.yaml
   - type: GraphQL
     url: graphql/bloom-credit-graphql.md
 - aid: bloom-credit:bloom-credit-trade-lines-api
@@ -158,16 +118,6 @@ apis:
     url: rules/bloom-credit-spectral-rules.yml
   - type: Vocabulary
     url: vocabulary/bloom-credit-vocabulary.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-consumers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-credit-reports.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-credit-scores.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-monitoring.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/bloom-credit-trade-lines.yaml
   - type: GraphQL
     url: graphql/bloom-credit-graphql.md
 common:
