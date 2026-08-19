@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bloom Credit Consumers API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Consumers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Bloom Credit Create Consumer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bloomcredit.io/v1/consumers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers a new consumer and obtains consent for credit data access. Returns a consumer_id used for subsequent credit data requests."
+        },
+        {
+          "info": {
+            "name": "Bloom Credit Get Consumer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bloomcredit.io/v1/consumers/:consumer_id",
+            "params": [
+              {
+                "name": "consumer_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the consumer."
+              }
+            ]
+          },
+          "docs": "Retrieves a registered consumer's profile and status."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

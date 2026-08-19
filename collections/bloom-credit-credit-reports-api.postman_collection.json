@@ -1,0 +1,169 @@
+{
+  "item": [
+    {
+      "id": "1d53b52e-c7ed-4d3e-bf0e-66ab1499607f",
+      "name": "Credit Reports",
+      "description": {
+        "content": "Full credit bureau report retrieval",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4e891a7b-7e1e-46ed-b201-3970cd6d77b1",
+          "name": "Bloom Credit Get Credit Reports",
+          "request": {
+            "name": "Bloom Credit Get Credit Reports",
+            "description": {
+              "content": "Retrieves credit reports for the specified consumer from one or more credit bureaus. Returns structured trade line, inquiry, and public record data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "consumers",
+                ":consumer_id",
+                "credit-reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "bureaus",
+                  "value": "<string>",
+                  "description": "Comma-separated list of bureaus (equifax,experian,transunion). Defaults to all three."
+                },
+                {
+                  "disabled": false,
+                  "key": "refresh",
+                  "value": "<boolean>",
+                  "description": "If true, pulls a fresh report from the bureau."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "consumer_id",
+                  "description": "(Required) Unique identifier for the consumer."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dc51f1ed-85bd-4fd6-bca0-f0bf6a32d25d",
+              "name": "Credit reports retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":consumer_id",
+                    "credit-reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bureaus",
+                      "value": "equifax,experian,transunion"
+                    },
+                    {
+                      "key": "refresh",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "consumer_id",
+                      "description": "(Required) Unique identifier for the consumer."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"consumer_id\": \"cns_8f7d3a2b1c4e5f6a\",\n  \"reports\": [\n    {\n      \"bureau\": \"equifax\",\n      \"pull_date\": \"2026-01-15T10:05:00Z\",\n      \"scores\": [\n        {\n          \"score_type\": \"FICO8\",\n          \"score\": 720,\n          \"score_range_min\": 300,\n          \"score_range_max\": 850\n        }\n      ],\n      \"trade_lines_count\": 8,\n      \"open_accounts\": 5,\n      \"total_balance\": 15200\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bloomcredit.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0744b424-c987-4a76-a7ae-74a5e2881716",
+    "name": "Bloom Credit Consumers Credit Reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Bloom Credit API provides access to consumer credit data from all three major credit bureaus (Equifax, Experian, TransUnion). Enables fintech applications, lenders, and financial services platforms to retrieve credit reports, credit scores, trade line data, and credit monitoring capabilities for consumers who have granted consent.\n\nContact Support:\n Name: Bloom Credit Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

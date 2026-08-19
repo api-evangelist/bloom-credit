@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bloom Credit Consumers Monitoring API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Monitoring",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Bloom Credit Enroll Monitoring",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bloomcredit.io/v1/consumers/:consumer_id/monitoring",
+            "params": [
+              {
+                "name": "consumer_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the consumer."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enrolls a consumer in credit monitoring to receive alerts on credit changes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

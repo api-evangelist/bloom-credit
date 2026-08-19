@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bloom Credit Consumers Trade Lines API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Trade Lines",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Bloom Credit Get Trade Lines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bloomcredit.io/v1/consumers/:consumer_id/trade-lines",
+            "params": [
+              {
+                "name": "consumer_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the consumer."
+              },
+              {
+                "name": "bureau",
+                "value": "",
+                "type": "query",
+                "description": "Bureau to pull trade lines from."
+              },
+              {
+                "name": "account_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by account type (revolving, installment, mortgage)."
+              }
+            ]
+          },
+          "docs": "Retrieves individual trade line (account) data for the consumer."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

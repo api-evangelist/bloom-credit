@@ -1,0 +1,169 @@
+{
+  "item": [
+    {
+      "id": "453b924c-37cf-484b-9eae-34a8caa4a4cc",
+      "name": "Trade Lines",
+      "description": {
+        "content": "Individual account and trade line data",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b62d7514-ed4c-4869-ad78-b99e50c27ef8",
+          "name": "Bloom Credit Get Trade Lines",
+          "request": {
+            "name": "Bloom Credit Get Trade Lines",
+            "description": {
+              "content": "Retrieves individual trade line (account) data for the consumer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "consumers",
+                ":consumer_id",
+                "trade-lines"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "bureau",
+                  "value": "<string>",
+                  "description": "Bureau to pull trade lines from."
+                },
+                {
+                  "disabled": false,
+                  "key": "account_type",
+                  "value": "<string>",
+                  "description": "Filter by account type (revolving, installment, mortgage)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "consumer_id",
+                  "description": "(Required) Unique identifier for the consumer."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f446b5c2-a088-41fe-bbf3-0f6073b8cd72",
+              "name": "Trade lines retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":consumer_id",
+                    "trade-lines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bureau",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "consumer_id",
+                      "description": "(Required) Unique identifier for the consumer."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"consumer_id\": \"cns_8f7d3a2b1c4e5f6a\",\n  \"trade_lines\": [\n    {\n      \"account_id\": \"tl_9a8b7c6d5e4f\",\n      \"bureau\": \"equifax\",\n      \"creditor_name\": \"Chase Bank\",\n      \"account_type\": \"revolving\",\n      \"account_status\": \"open\",\n      \"credit_limit\": 10000,\n      \"current_balance\": 2400,\n      \"payment_status\": \"current\",\n      \"opened_date\": \"2018-03-01\",\n      \"last_activity_date\": \"2026-01-10\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bloomcredit.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6b06c96b-c9f9-41da-a8c7-dfa315dc9dc6",
+    "name": "Bloom Credit Consumers Trade Lines API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Bloom Credit API provides access to consumer credit data from all three major credit bureaus (Equifax, Experian, TransUnion). Enables fintech applications, lenders, and financial services platforms to retrieve credit reports, credit scores, trade line data, and credit monitoring capabilities for consumers who have granted consent.\n\nContact Support:\n Name: Bloom Credit Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

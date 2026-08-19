@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bloom Credit Consumers Credit Reports API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Credit Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Bloom Credit Get Credit Reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bloomcredit.io/v1/consumers/:consumer_id/credit-reports",
+            "params": [
+              {
+                "name": "consumer_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the consumer."
+              },
+              {
+                "name": "bureaus",
+                "value": "equifax,experian,transunion",
+                "type": "query",
+                "description": "Comma-separated list of bureaus (equifax,experian,transunion). Defaults to all three."
+              },
+              {
+                "name": "refresh",
+                "value": "",
+                "type": "query",
+                "description": "If true, pulls a fresh report from the bureau."
+              }
+            ]
+          },
+          "docs": "Retrieves credit reports for the specified consumer from one or more credit bureaus. Returns structured trade line, inquiry, and public record data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

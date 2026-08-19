@@ -1,0 +1,168 @@
+{
+  "item": [
+    {
+      "id": "2c16eb74-137b-497d-ad2c-aa3583cef291",
+      "name": "Monitoring",
+      "description": {
+        "content": "Credit monitoring and alerts",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "724c039d-8554-47be-82ef-359211a8a9c3",
+          "name": "Bloom Credit Enroll Monitoring",
+          "request": {
+            "name": "Bloom Credit Enroll Monitoring",
+            "description": {
+              "content": "Enrolls a consumer in credit monitoring to receive alerts on credit changes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "consumers",
+                ":consumer_id",
+                "monitoring"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "consumer_id",
+                  "description": "(Required) Unique identifier for the consumer."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bureaus\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"alert_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"webhook_url\": \"<uri>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cb9367e4-3f55-486f-9b23-74c246d4d599",
+              "name": "Monitoring enrollment created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":consumer_id",
+                    "monitoring"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "consumer_id",
+                      "description": "(Required) Unique identifier for the consumer."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bureaus\": [\n    \"equifax\",\n    \"experian\",\n    \"transunion\"\n  ],\n  \"alert_types\": [\n    \"NEW_ACCOUNT\",\n    \"INQUIRY\",\n    \"DEROGATORY\",\n    \"SCORE_CHANGE\"\n  ],\n  \"webhook_url\": \"https://example.com/webhooks/credit-alerts\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"enrollment_id\": \"mon_4b3c2d1e0f9a\",\n  \"consumer_id\": \"cns_8f7d3a2b1c4e5f6a\",\n  \"status\": \"ACTIVE\",\n  \"bureaus\": [\n    \"equifax\",\n    \"experian\",\n    \"transunion\"\n  ],\n  \"created_at\": \"2026-01-15T10:10:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bloomcredit.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "aaa57a41-582b-4eae-86d8-b462c4697e39",
+    "name": "Bloom Credit Consumers Monitoring API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Bloom Credit API provides access to consumer credit data from all three major credit bureaus (Equifax, Experian, TransUnion). Enables fintech applications, lenders, and financial services platforms to retrieve credit reports, credit scores, trade line data, and credit monitoring capabilities for consumers who have granted consent.\n\nContact Support:\n Name: Bloom Credit Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

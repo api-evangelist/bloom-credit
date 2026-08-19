@@ -1,0 +1,169 @@
+{
+  "item": [
+    {
+      "id": "01e1472f-3d76-4d60-b055-21985dce8cb3",
+      "name": "Credit Scores",
+      "description": {
+        "content": "Credit score retrieval",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a6d32d1e-f2f7-44bd-aee3-3b5a84d09091",
+          "name": "Bloom Credit Get Credit Scores",
+          "request": {
+            "name": "Bloom Credit Get Credit Scores",
+            "description": {
+              "content": "Retrieves credit scores for the consumer from specified bureaus.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "consumers",
+                ":consumer_id",
+                "scores"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "bureaus",
+                  "value": "<string>",
+                  "description": "Comma-separated list of bureaus."
+                },
+                {
+                  "disabled": false,
+                  "key": "score_type",
+                  "value": "<string>",
+                  "description": "Score model type (e.g., FICO8, VANTAGE3)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "consumer_id",
+                  "description": "(Required) Unique identifier for the consumer."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1008727e-1c6e-4221-a016-a7cc3dd4ce86",
+              "name": "Credit scores retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumers",
+                    ":consumer_id",
+                    "scores"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bureaus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "score_type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "consumer_id",
+                      "description": "(Required) Unique identifier for the consumer."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"consumer_id\": \"cns_8f7d3a2b1c4e5f6a\",\n  \"scores\": [\n    {\n      \"bureau\": \"equifax\",\n      \"score_type\": \"FICO8\",\n      \"score\": 720,\n      \"score_range_min\": 300,\n      \"score_range_max\": 850,\n      \"factors\": [\n        {\n          \"code\": \"PAYMENT_HISTORY\",\n          \"description\": \"Payments made on time\"\n        }\n      ]\n    },\n    {\n      \"bureau\": \"experian\",\n      \"score_type\": \"FICO8\",\n      \"score\": 715,\n      \"score_range_min\": 300,\n      \"score_range_max\": 850\n    },\n    {\n      \"bureau\": \"transunion\",\n      \"score_type\": \"FICO8\",\n      \"score\": 718,\n      \"score_range_min\": 300,\n      \"score_range_max\": 850\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bloomcredit.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "301c0c88-65c2-44a4-ba6f-b2bb089768c4",
+    "name": "Bloom Credit Consumers Credit Scores API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Bloom Credit API provides access to consumer credit data from all three major credit bureaus (Equifax, Experian, TransUnion). Enables fintech applications, lenders, and financial services platforms to retrieve credit reports, credit scores, trade line data, and credit monitoring capabilities for consumers who have granted consent.\n\nContact Support:\n Name: Bloom Credit Developer Support",
+      "type": "text/plain"
+    }
+  }
+}
