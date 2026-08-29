@@ -17,6 +17,13 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "bloom-credit-consumers-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "bloom-credit-credit-reports-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "bloom-credit-credit-scores-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "bloom-credit-monitoring-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "bloom-credit-trade-lines-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

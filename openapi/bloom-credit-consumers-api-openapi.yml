@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Bloom Credit Consumers API
   description: Bloom Credit API provides access to consumer credit data from all three major credit bureaus (Equifax, Experian, TransUnion). Enables fintech applications, lenders, and financial services platforms to retrieve credit reports, credit scores, trade line data, and credit monitoring capabilities for consumers who have granted consent.
@@ -109,38 +109,6 @@ paths:
         dispatcherRules: consumer_id
 components:
   schemas:
-    CreateConsumerRequest:
-      type: object
-      required:
-      - first_name
-      - last_name
-      - date_of_birth
-      - ssn
-      - address
-      properties:
-        first_name:
-          type: string
-          example: Jane
-        last_name:
-          type: string
-          example: Smith
-        date_of_birth:
-          type: string
-          format: date
-          example: '1985-06-15'
-        ssn:
-          type: string
-          description: Social Security Number for identity verification.
-          example: 123-45-6789
-        address:
-          $ref: '#/components/schemas/Address'
-        email:
-          type: string
-          format: email
-          example: jane.smith@example.com
-        phone:
-          type: string
-          example: '+14155551234'
     Consumer:
       type: object
       description: A registered consumer with consent for credit data access.
@@ -190,6 +158,38 @@ components:
         zip_code:
           type: string
           example: '94102'
+    CreateConsumerRequest:
+      type: object
+      required:
+      - first_name
+      - last_name
+      - date_of_birth
+      - ssn
+      - address
+      properties:
+        first_name:
+          type: string
+          example: Jane
+        last_name:
+          type: string
+          example: Smith
+        date_of_birth:
+          type: string
+          format: date
+          example: '1985-06-15'
+        ssn:
+          type: string
+          description: Social Security Number for identity verification.
+          example: 123-45-6789
+        address:
+          $ref: '#/components/schemas/Address'
+        email:
+          type: string
+          format: email
+          example: jane.smith@example.com
+        phone:
+          type: string
+          example: '+14155551234'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
