@@ -9,6 +9,13 @@ description: Bloom Credit is a fintech infrastructure company providing API acce
 tags:
 - Credit Bureau
 - Credit Reports
+- Credit Score
+- Fintech
+- Lending
+- Personal Finance
+tags_raw:
+- Credit Bureau
+- Credit Reports
 - Credit Scores
 - Fintech
 - Lending
@@ -86,6 +93,8 @@ apis:
   description: Credit score retrieval
   humanURL: https://bloomcredit.io/
   tags:
+  - Credit Score
+  tags_raw:
   - Credit Scores
   properties:
   - type: OpenAPI
