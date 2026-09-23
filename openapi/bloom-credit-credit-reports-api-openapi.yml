@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Bloom Credit Consumers Credit Reports API
+  title: Bloom Credit Credit Reports API
   description: Bloom Credit API provides access to consumer credit data from all three major credit bureaus (Equifax, Experian, TransUnion). Enables fintech applications, lenders, and financial services platforms to retrieve credit reports, credit scores, trade line data, and credit monitoring capabilities for consumers who have granted consent.
   version: '1.0'
   contact:
@@ -105,6 +105,16 @@ components:
           type: integer
           description: Total balance across all accounts in USD cents.
           example: 15200
+    CreditReportResponse:
+      type: object
+      properties:
+        consumer_id:
+          type: string
+          example: cns_8f7d3a2b1c4e5f6a
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditReport'
     CreditScore:
       type: object
       description: A credit score from a specific bureau and scoring model.
@@ -145,16 +155,6 @@ components:
               description:
                 type: string
                 example: Payments made on time
-    CreditReportResponse:
-      type: object
-      properties:
-        consumer_id:
-          type: string
-          example: cns_8f7d3a2b1c4e5f6a
-        reports:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreditReport'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

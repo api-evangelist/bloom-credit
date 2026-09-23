@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Bloom Credit Consumers Trade Lines API
+  title: Bloom Credit Trade Lines API
   description: Bloom Credit API provides access to consumer credit data from all three major credit bureaus (Equifax, Experian, TransUnion). Enables fintech applications, lenders, and financial services platforms to retrieve credit reports, credit scores, trade line data, and credit monitoring capabilities for consumers who have granted consent.
   version: '1.0'
   contact:
@@ -75,16 +75,6 @@ paths:
         dispatcherRules: consumer_id
 components:
   schemas:
-    TradeLinesResponse:
-      type: object
-      properties:
-        consumer_id:
-          type: string
-          example: cns_8f7d3a2b1c4e5f6a
-        trade_lines:
-          type: array
-          items:
-            $ref: '#/components/schemas/TradeLine'
     TradeLine:
       type: object
       description: An individual account or trade line in a credit report.
@@ -135,6 +125,16 @@ components:
           type: string
           format: date
           example: '2026-01-10'
+    TradeLinesResponse:
+      type: object
+      properties:
+        consumer_id:
+          type: string
+          example: cns_8f7d3a2b1c4e5f6a
+        trade_lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/TradeLine'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

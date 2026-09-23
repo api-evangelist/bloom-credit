@@ -109,39 +109,6 @@ paths:
         dispatcherRules: consumer_id
 components:
   schemas:
-    Consumer:
-      type: object
-      description: A registered consumer with consent for credit data access.
-      properties:
-        consumer_id:
-          type: string
-          description: Unique identifier for the consumer.
-          example: cns_8f7d3a2b1c4e5f6a
-        first_name:
-          type: string
-          description: Consumer's first name.
-          example: Jane
-        last_name:
-          type: string
-          description: Consumer's last name.
-          example: Smith
-        email:
-          type: string
-          format: email
-          description: Consumer's email address.
-          example: jane.smith@example.com
-        status:
-          type: string
-          description: Consumer account status.
-          enum:
-          - ACTIVE
-          - INACTIVE
-          - PENDING
-          example: ACTIVE
-        created_at:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:00:00Z'
     Address:
       type: object
       description: Physical mailing address.
@@ -190,6 +157,39 @@ components:
         phone:
           type: string
           example: '+14155551234'
+    Consumer:
+      type: object
+      description: A registered consumer with consent for credit data access.
+      properties:
+        consumer_id:
+          type: string
+          description: Unique identifier for the consumer.
+          example: cns_8f7d3a2b1c4e5f6a
+        first_name:
+          type: string
+          description: Consumer's first name.
+          example: Jane
+        last_name:
+          type: string
+          description: Consumer's last name.
+          example: Smith
+        email:
+          type: string
+          format: email
+          description: Consumer's email address.
+          example: jane.smith@example.com
+        status:
+          type: string
+          description: Consumer account status.
+          enum:
+          - ACTIVE
+          - INACTIVE
+          - PENDING
+          example: ACTIVE
+        created_at:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:00:00Z'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

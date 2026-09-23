@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Bloom Credit Consumers Monitoring API
+  title: Bloom Credit Monitoring API
   description: Bloom Credit API provides access to consumer credit data from all three major credit bureaus (Equifax, Experian, TransUnion). Enables fintech applications, lenders, and financial services platforms to retrieve credit reports, credit scores, trade line data, and credit monitoring capabilities for consumers who have granted consent.
   version: '1.0'
   contact:
@@ -82,6 +82,32 @@ paths:
         dispatcherRules: consumer_id
 components:
   schemas:
+    MonitoringEnrollRequest:
+      type: object
+      properties:
+        bureaus:
+          type: array
+          items:
+            type: string
+          example:
+          - equifax
+          - experian
+          - transunion
+        alert_types:
+          type: array
+          description: Types of changes to monitor.
+          items:
+            type: string
+          example:
+          - NEW_ACCOUNT
+          - INQUIRY
+          - DEROGATORY
+          - SCORE_CHANGE
+        webhook_url:
+          type: string
+          format: uri
+          description: URL to receive credit monitoring alerts.
+          example: https://example.com/webhooks/credit-alerts
     MonitoringEnrollment:
       type: object
       description: Credit monitoring enrollment record.
@@ -112,32 +138,6 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:10:00Z'
-    MonitoringEnrollRequest:
-      type: object
-      properties:
-        bureaus:
-          type: array
-          items:
-            type: string
-          example:
-          - equifax
-          - experian
-          - transunion
-        alert_types:
-          type: array
-          description: Types of changes to monitor.
-          items:
-            type: string
-          example:
-          - NEW_ACCOUNT
-          - INQUIRY
-          - DEROGATORY
-          - SCORE_CHANGE
-        webhook_url:
-          type: string
-          format: uri
-          description: URL to receive credit monitoring alerts.
-          example: https://example.com/webhooks/credit-alerts
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

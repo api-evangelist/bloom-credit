@@ -1,11 +1,7 @@
 {
   "provider": "bloom-credit",
   "sources": [
-    "bloom-credit-consumers-api-openapi.yml",
-    "bloom-credit-credit-reports-api-openapi.yml",
-    "bloom-credit-credit-scores-api-openapi.yml",
-    "bloom-credit-monitoring-api-openapi.yml",
-    "bloom-credit-trade-lines-api-openapi.yml"
+    "_ae-authored/bloom-credit-api-openapi.yaml"
   ],
   "outputs": [
     "bloom-credit-consumers-api-openapi.yml",
@@ -18,12 +14,15 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "bloom-credit-consumers-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "bloom-credit-credit-reports-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "bloom-credit-credit-scores-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "bloom-credit-monitoring-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "bloom-credit-trade-lines-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "bloom-credit-api-openapi.yaml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "bloom-credit-consumers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bloom-credit-credit-reports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bloom-credit-credit-scores-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bloom-credit-monitoring-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bloom-credit-trade-lines-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
