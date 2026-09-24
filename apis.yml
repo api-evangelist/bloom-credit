@@ -69,8 +69,6 @@ apis:
     url: rules/bloom-credit-spectral-rules.yml
   - type: Vocabulary
     url: vocabulary/bloom-credit-vocabulary.yaml
-  - type: GraphQL
-    url: graphql/bloom-credit-graphql.md
 - aid: bloom-credit:bloom-credit-credit-reports-api
   name: Bloom Credit Reports API
   description: Full credit bureau report retrieval
@@ -86,8 +84,6 @@ apis:
     url: rules/bloom-credit-spectral-rules.yml
   - type: Vocabulary
     url: vocabulary/bloom-credit-vocabulary.yaml
-  - type: GraphQL
-    url: graphql/bloom-credit-graphql.md
 - aid: bloom-credit:bloom-credit-credit-scores-api
   name: Bloom Credit Scores API
   description: Credit score retrieval
@@ -105,8 +101,6 @@ apis:
     url: rules/bloom-credit-spectral-rules.yml
   - type: Vocabulary
     url: vocabulary/bloom-credit-vocabulary.yaml
-  - type: GraphQL
-    url: graphql/bloom-credit-graphql.md
 - aid: bloom-credit:bloom-credit-monitoring-api
   name: Bloom Credit Monitoring API
   description: Credit monitoring and alerts
@@ -122,8 +116,6 @@ apis:
     url: rules/bloom-credit-spectral-rules.yml
   - type: Vocabulary
     url: vocabulary/bloom-credit-vocabulary.yaml
-  - type: GraphQL
-    url: graphql/bloom-credit-graphql.md
 - aid: bloom-credit:bloom-credit-trade-lines-api
   name: Bloom Credit Trade Lines API
   description: Individual account and trade line data
@@ -139,8 +131,6 @@ apis:
     url: rules/bloom-credit-spectral-rules.yml
   - type: Vocabulary
     url: vocabulary/bloom-credit-vocabulary.yaml
-  - type: GraphQL
-    url: graphql/bloom-credit-graphql.md
 common:
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/bloom-credit/overview
