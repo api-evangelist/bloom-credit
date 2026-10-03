@@ -75,6 +75,16 @@ paths:
         dispatcherRules: consumer_id
 components:
   schemas:
+    TradeLinesResponse:
+      type: object
+      properties:
+        consumer_id:
+          type: string
+          example: cns_8f7d3a2b1c4e5f6a
+        trade_lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/TradeLine'
     TradeLine:
       type: object
       description: An individual account or trade line in a credit report.
@@ -125,16 +135,6 @@ components:
           type: string
           format: date
           example: '2026-01-10'
-    TradeLinesResponse:
-      type: object
-      properties:
-        consumer_id:
-          type: string
-          example: cns_8f7d3a2b1c4e5f6a
-        trade_lines:
-          type: array
-          items:
-            $ref: '#/components/schemas/TradeLine'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

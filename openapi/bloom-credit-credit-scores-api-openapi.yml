@@ -83,6 +83,16 @@ paths:
         dispatcherRules: consumer_id
 components:
   schemas:
+    CreditScoreResponse:
+      type: object
+      properties:
+        consumer_id:
+          type: string
+          example: cns_8f7d3a2b1c4e5f6a
+        scores:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditScore'
     CreditScore:
       type: object
       description: A credit score from a specific bureau and scoring model.
@@ -123,16 +133,6 @@ components:
               description:
                 type: string
                 example: Payments made on time
-    CreditScoreResponse:
-      type: object
-      properties:
-        consumer_id:
-          type: string
-          example: cns_8f7d3a2b1c4e5f6a
-        scores:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreditScore'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
