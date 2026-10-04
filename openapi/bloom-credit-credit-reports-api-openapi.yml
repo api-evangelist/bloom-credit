@@ -76,45 +76,6 @@ paths:
         dispatcherRules: consumer_id
 components:
   schemas:
-    CreditReportResponse:
-      type: object
-      properties:
-        consumer_id:
-          type: string
-          example: cns_8f7d3a2b1c4e5f6a
-        reports:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreditReport'
-    CreditReport:
-      type: object
-      description: A credit report from a specific bureau.
-      properties:
-        bureau:
-          type: string
-          enum:
-          - equifax
-          - experian
-          - transunion
-          example: equifax
-        pull_date:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:05:00Z'
-        scores:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreditScore'
-        trade_lines_count:
-          type: integer
-          example: 8
-        open_accounts:
-          type: integer
-          example: 5
-        total_balance:
-          type: integer
-          description: Total balance across all accounts in USD cents.
-          example: 15200
     CreditScore:
       type: object
       description: A credit score from a specific bureau and scoring model.
@@ -155,6 +116,45 @@ components:
               description:
                 type: string
                 example: Payments made on time
+    CreditReport:
+      type: object
+      description: A credit report from a specific bureau.
+      properties:
+        bureau:
+          type: string
+          enum:
+          - equifax
+          - experian
+          - transunion
+          example: equifax
+        pull_date:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:05:00Z'
+        scores:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditScore'
+        trade_lines_count:
+          type: integer
+          example: 8
+        open_accounts:
+          type: integer
+          example: 5
+        total_balance:
+          type: integer
+          description: Total balance across all accounts in USD cents.
+          example: 15200
+    CreditReportResponse:
+      type: object
+      properties:
+        consumer_id:
+          type: string
+          example: cns_8f7d3a2b1c4e5f6a
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditReport'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

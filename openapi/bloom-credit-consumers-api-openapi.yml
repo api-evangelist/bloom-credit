@@ -109,22 +109,38 @@ paths:
         dispatcherRules: consumer_id
 components:
   schemas:
-    Address:
+    CreateConsumerRequest:
       type: object
-      description: Physical mailing address.
+      required:
+      - first_name
+      - last_name
+      - date_of_birth
+      - ssn
+      - address
       properties:
-        street:
+        first_name:
           type: string
-          example: 456 Oak Avenue
-        city:
+          example: Jane
+        last_name:
           type: string
-          example: San Francisco
-        state:
+          example: Smith
+        date_of_birth:
           type: string
-          example: CA
-        zip_code:
+          format: date
+          example: '1985-06-15'
+        ssn:
           type: string
-          example: '94102'
+          description: Social Security Number for identity verification.
+          example: 123-45-6789
+        address:
+          $ref: '#/components/schemas/Address'
+        email:
+          type: string
+          format: email
+          example: jane.smith@example.com
+        phone:
+          type: string
+          example: '+14155551234'
     Consumer:
       type: object
       description: A registered consumer with consent for credit data access.
@@ -158,38 +174,22 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:00:00Z'
-    CreateConsumerRequest:
+    Address:
       type: object
-      required:
-      - first_name
-      - last_name
-      - date_of_birth
-      - ssn
-      - address
+      description: Physical mailing address.
       properties:
-        first_name:
+        street:
           type: string
-          example: Jane
-        last_name:
+          example: 456 Oak Avenue
+        city:
           type: string
-          example: Smith
-        date_of_birth:
+          example: San Francisco
+        state:
           type: string
-          format: date
-          example: '1985-06-15'
-        ssn:
+          example: CA
+        zip_code:
           type: string
-          description: Social Security Number for identity verification.
-          example: 123-45-6789
-        address:
-          $ref: '#/components/schemas/Address'
-        email:
-          type: string
-          format: email
-          example: jane.smith@example.com
-        phone:
-          type: string
-          example: '+14155551234'
+          example: '94102'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
