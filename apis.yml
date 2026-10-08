@@ -132,6 +132,12 @@ apis:
   - type: Vocabulary
     url: vocabulary/bloom-credit-vocabulary.yaml
 common:
+- type: Plans
+  url: plans/bloom-credit-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/bloom-credit-rate-limits.yml
+- type: FinOps
+  url: finops/bloom-credit-finops.yml
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/bloom-credit/overview
 - type: AgenticAccess
