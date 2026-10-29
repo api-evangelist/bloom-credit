@@ -1,4 +1,4 @@
-# Bloom Credit (bloom-credit)
+# Bloom Credit
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,134 +66,183 @@
 
 Bloom Credit is a fintech infrastructure company providing API access to consumer credit data from all three major credit bureaus (Equifax, Experian, TransUnion). The platform enables fintechs, lenders, and financial services applications to retrieve credit reports, credit scores, trade line data, and enroll consumers in real-time credit monitoring. Bloom Credit provides multi-language SDKs (Python, Ruby, TypeScript, R, Go) and supports the Metro 2 credit reporting format.
 
-**URL:** [https://bloomcredit.io](https://bloomcredit.io)
+**Areas:** Credit Bureau · Credit Reports · Credit Score · Fintech · Lending · Personal Finance
 
-**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
+## Bloom Credit on APIs.io
 
-## Tags:
+Everything profiled for Bloom Credit is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/bloom-credit/](https://apis.io/providers/bloom-credit/)** — or go straight to one of the APIs or properties below.
 
- - Credit Bureau, Credit Reports, Credit Scores, Fintech, Lending, Personal Finance
+### APIs (5)
 
-## Timestamps
+- [Bloom Credit Consumers API](https://apis.io/apis/bloom-credit/bloom-credit-consumers-api/) — Consumer identity and registration
+- [Bloom Credit Reports API](https://apis.io/apis/bloom-credit/bloom-credit-credit-reports-api/) — Full credit bureau report retrieval
+- [Bloom Credit Scores API](https://apis.io/apis/bloom-credit/bloom-credit-credit-scores-api/) — Credit score retrieval
+- [Bloom Credit Monitoring API](https://apis.io/apis/bloom-credit/bloom-credit-monitoring-api/) — Credit monitoring and alerts
+- [Bloom Credit Trade Lines API](https://apis.io/apis/bloom-credit/bloom-credit-trade-lines-api/) — Individual account and trade line data
 
-- **Created:** 2025-02-24
-- **Modified:** 2026-04-19
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### Bloom Credit API
-RESTful API providing access to consumer credit data from Equifax, Experian, and TransUnion. Supports consumer registration with consent, tri-bureau credit report retrieval, FICO and VantageScore credit scores, trade line data, and real-time credit monitoring with webhook alerts.
+#### GraphQL (1)
 
-**Human URL:** [https://bloomcredit.io/](https://bloomcredit.io/)
+GraphQL schemas.
 
-#### Tags:
+- [Moved to /providers/bloom-credit/](https://apis.io/graphqls/bloom-credit/bloom-credit-graphql/)
 
- - Credit Bureau, Credit Reports, Credit Scores, Fintech, Lending
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://bloomcredit.io/)
-- [OpenAPI](openapi/bloom-credit-api-openapi.yaml)
-- [NaftikoCapability](capabilities/bloom-credit-credit-intelligence.yaml)
-- [SpectralRules](rules/bloom-credit-spectral-rules.yml)
-- [Vocabulary](vocabulary/bloom-credit-vocabulary.yaml)
+- [Bloom Credit Agentic Access](https://apis.io/agentic-access/bloom-credit/bloom-credit-agentic-access/)
 
-## Common Properties
+#### JSON Schema (4)
+
+The data models the API reads and writes.
+
+- [Consumer](https://apis.io/schemas/bloom-credit/bloom-credit-consumer/)
+- [CreditScore](https://apis.io/schemas/bloom-credit/bloom-credit-credit-score/)
+- [MonitoringEnrollment](https://apis.io/schemas/bloom-credit/bloom-credit-monitoring-enrollment/)
+- [TradeLine](https://apis.io/schemas/bloom-credit/bloom-credit-trade-line/)
+
+#### JSON Structure (4)
+
+Data models expressed in JSON Structure.
+
+- [Bloom Credit Consumer Structure](https://apis.io/json-structure/bloom-credit/bloom-credit-consumer-structure/)
+- [Bloom Credit Credit Score Structure](https://apis.io/json-structure/bloom-credit/bloom-credit-credit-score-structure/)
+- [Bloom Credit Monitoring Enrollment Structure](https://apis.io/json-structure/bloom-credit/bloom-credit-monitoring-enrollment-structure/)
+- [Bloom Credit Trade Line Structure](https://apis.io/json-structure/bloom-credit/bloom-credit-trade-line-structure/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Bloom Credit Context](https://apis.io/jsonld/bloom-credit/bloom-credit-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Bloom Credit Vocabulary](https://apis.io/vocabularies/bloom-credit/bloom-credit-vocabulary/)
+
+#### Examples (4)
+
+Example requests and responses.
+
+- [Bloom Credit Consumer Example](https://apis.io/examples/bloom-credit/bloom-credit-consumer-example/)
+- [Bloom Credit Credit Score Example](https://apis.io/examples/bloom-credit/bloom-credit-credit-score-example/)
+- [Bloom Credit Monitoring Enrollment Example](https://apis.io/examples/bloom-credit/bloom-credit-monitoring-enrollment-example/)
+- [Bloom Credit Trade Line Example](https://apis.io/examples/bloom-credit/bloom-credit-trade-line-example/)
+
+#### Collections (10)
+
+Postman and Open Collection request collections.
+
+- [Bloom Credit Consumers API](https://apis.io/collections/bloom-credit/open-bloom-credit-consumers-api/)
+- [Bloom Credit Consumers Credit Reports API](https://apis.io/collections/bloom-credit/open-bloom-credit-credit-reports-api/)
+- [Bloom Credit Consumers Credit Scores API](https://apis.io/collections/bloom-credit/open-bloom-credit-credit-scores-api/)
+- [Bloom Credit Consumers Monitoring API](https://apis.io/collections/bloom-credit/open-bloom-credit-monitoring-api/)
+- [Bloom Credit Consumers Trade Lines API](https://apis.io/collections/bloom-credit/open-bloom-credit-trade-lines-api/)
+- [Bloom Credit Consumers API](https://apis.io/collections/bloom-credit/postman-bloom-credit-consumers-api/)
+- [Bloom Credit Consumers Credit Reports API](https://apis.io/collections/bloom-credit/postman-bloom-credit-credit-reports-api/)
+- [Bloom Credit Consumers Credit Scores API](https://apis.io/collections/bloom-credit/postman-bloom-credit-credit-scores-api/)
+- [Bloom Credit Consumers Monitoring API](https://apis.io/collections/bloom-credit/postman-bloom-credit-monitoring-api/)
+- [Bloom Credit Consumers Trade Lines API](https://apis.io/collections/bloom-credit/postman-bloom-credit-trade-lines-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Bloom Credit — jsonschema rules](https://apis.io/rules/bloom-credit/bloom-credit-jsonschema-spectral-rules/)
+- [Bloom Credit API Rules](https://apis.io/rules/bloom-credit/bloom-credit-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Bloom Credit Authentication](https://apis.io/security/bloom-credit/bloom-credit-authentication/)
+- [Bloom Credit Domain Security](https://apis.io/security/bloom-credit/bloom-credit-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Bloom Credit Plans Pricing](https://apis.io/plans/bloom-credit/bloom-credit-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Bloom Credit Rate Limits](https://apis.io/rate-limits/bloom-credit/bloom-credit-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Bloom Credit Finops](https://apis.io/finops/bloom-credit/bloom-credit-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://bloomcredit.io/)
-- [GitHub Organization](https://github.com/bloomcredit)
-- [Python SDK](https://github.com/bloomcredit/bloomPy)
-- [TypeScript SDK](https://github.com/bloomcredit/bloomTypescript)
-- [Terms of Service](https://bloomcredit.io/terms)
-- [Privacy Policy](https://bloomcredit.io/privacy)
+- [Documentation](https://bloomcredit.io/)
+- [Getting started](https://bloomcredit.io/)
+- [Blog](https://bloomcredit.io/feed/)
+- [Terms of service](https://bloomcredit.io/terms)
+- [Privacy policy](https://bloomcredit.io/privacy)
+- [GitHub](https://github.com/bloomcredit)
 
-## Features
+## API Evangelist rating
 
-| Name | Description |
-|------|-------------|
-| Tri-Bureau Credit Reports | Pull full credit reports from Equifax, Experian, and TransUnion in a single API call with structured trade line, inquiry, and public record data. |
-| Credit Score Retrieval | Access FICO 8, VantageScore 3.0, and other scoring models from all three major credit bureaus for comprehensive creditworthiness assessment. |
-| Trade Line Data | Retrieve individual account and trade line records including payment history, balances, credit limits, and account status across bureaus. |
-| Real-Time Credit Monitoring | Enroll consumers in monitoring subscriptions that trigger webhook alerts for new accounts, inquiries, derogatory marks, and score changes. |
-| Consumer Consent Management | Built-in consumer registration and consent workflow ensuring FCRA-compliant access to credit bureau data with auditable consent records. |
-| Multi-Language SDKs | Official SDKs for Python, TypeScript, Ruby, R, and Go enabling rapid integration into existing fintech and data science workflows. |
+**Kin Score 29.1** — thin · rubric 0.24.0 · scored 2026-10-17
 
-## Use Cases
+| Facet | Score |
+|---|---|
+| Discoverability | 69.6 |
+| Contract quality | 19.7 |
+| Contract governance | 27.3 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 44.0 |
+| Access clarity | 18.4 |
 
-| Name | Description |
-|------|-------------|
-| Loan Underwriting | Lenders pull tri-bureau credit reports and scores during loan origination to assess creditworthiness and determine loan terms. |
-| Credit Building Apps | Consumer fintech applications provide users with free credit score monitoring and personalized recommendations to improve their credit profiles. |
-| Tenant Screening | Property management platforms use Bloom Credit to run credit checks during rental application processing. |
-| Credit Counseling | Financial advisors and credit counselors access full credit reports and trade line data to create personalized debt management plans. |
-| Account Origination | Financial institutions use credit data during account opening to verify identity and assess risk for credit card and deposit products. |
+**Agent readiness 22.9** — agent-aware
 
-## Integrations
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
 
-| Name | Description |
-|------|-------------|
-| Equifax | Direct integration with Equifax for credit report and score data including FICO 8 and other proprietary scoring models. |
-| Experian | Direct integration with Experian for credit reports, FICO scores, and VantageScore data with real-time data freshness. |
-| TransUnion | Direct integration with TransUnion for credit reports and scores with support for TransUnion-specific data attributes. |
-| Plaid | Complementary integration where Bloom Credit's credit data can be combined with Plaid's bank account and income verification for full financial profiles. |
+**Regulatory alignment 20.6** — Horizontal (data, software, accessibility, platform)
 
-## Artifacts
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/bloom-credit/](https://apis.io/providers/bloom-credit/).
 
-Machine-readable API specifications organized by format.
+## How this profile is made
 
-### OpenAPI
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
 
-- [Bloom Credit API](openapi/bloom-credit-api-openapi.yaml)
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Bloom Credit: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
 
-### JSON Schema
+## Open an issue
 
-- [Consumer](json-schema/bloom-credit-consumer-schema.json)
-- [Credit Score](json-schema/bloom-credit-credit-score-schema.json)
-- [Trade Line](json-schema/bloom-credit-trade-line-schema.json)
-- [Monitoring Enrollment](json-schema/bloom-credit-monitoring-enrollment-schema.json)
-
-### JSON Structure
-
-- [Consumer](json-structure/bloom-credit-consumer-structure.json)
-- [Credit Score](json-structure/bloom-credit-credit-score-structure.json)
-- [Trade Line](json-structure/bloom-credit-trade-line-structure.json)
-- [Monitoring Enrollment](json-structure/bloom-credit-monitoring-enrollment-structure.json)
-
-### JSON-LD
-
-- [Bloom Credit Context](json-ld/bloom-credit-context.jsonld)
-
-### Examples
-
-- [Consumer Example](examples/bloom-credit-consumer-example.json)
-- [Credit Score Example](examples/bloom-credit-credit-score-example.json)
-- [Trade Line Example](examples/bloom-credit-trade-line-example.json)
-- [Monitoring Enrollment Example](examples/bloom-credit-monitoring-enrollment-example.json)
-
-## Capabilities
-
-Naftiko capabilities organized as shared per-API definitions composed into customer-facing workflows.
-
-### Shared Per-API Definitions
-
-- [Bloom Credit API](capabilities/shared/bloom-credit-api.yaml) — 6 operations for consumer registration, credit reports, scores, trade lines, and monitoring
-
-### Workflow Capabilities
-
-| Workflow | APIs Combined | Tools | Persona |
-|----------|--------------|-------|---------|
-| [Bloom Credit Credit Intelligence](capabilities/bloom-credit-credit-intelligence.yaml) | Bloom Credit API | 6 | Fintech Developers, Lenders and Underwriters, Credit Counselors, Consumer Finance Apps |
-
-## Vocabulary
-
-- [Bloom Credit Vocabulary](vocabulary/bloom-credit-vocabulary.yaml) — Unified taxonomy mapping 5 resources, 4 actions, 1 workflow, and 4 personas across operational (OpenAPI) and capability (Naftiko) dimensions
-
-## Rules
-
-- [Bloom Credit Spectral Rules](rules/bloom-credit-spectral-rules.yml) — 30 rules across 12 categories enforcing Bloom Credit API conventions
-
-## Maintainers
-
-**FN:** Kin Lane
-
-**Email:** kin@apievangelist.com
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/bloom-credit/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
